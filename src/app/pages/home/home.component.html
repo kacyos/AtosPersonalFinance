@@ -38,13 +38,13 @@
           <span class="indentify"></span>
           <div class="card-body">
             <h5 class="card-title text-center">Entradas</h5>
-            <div>R$ 1500,00</div>
+            <div class="bold">{{ totalRevenues }}</div>
           </div>
         </div>
         <div class="card col-md-3 col-sm-4 expense">
           <div class="card-body">
             <h5 class="card-title text-center">Saídas</h5>
-            <div>R$ 1500,00</div>
+            <div>{{ totalExpenses }}</div>
           </div>
         </div>
         <div class="card col-md-3 col-sm-4 balance">
@@ -52,7 +52,7 @@
           <div class="card-body">
             <div class="">
               <h5 class="card-title text-center">Balanço</h5>
-              <div>R$ 1500,00</div>
+              <div>{{ balance }}</div>
             </div>
           </div>
         </div>
@@ -60,7 +60,7 @@
 
       <div class="row d-flex justify-content-center mt-4 w-100">
         <div class="col-md-7 col-sm-12">
-          <app-line-chart></app-line-chart>
+          <canvas #chart></canvas>
         </div>
       </div>
     </div>
