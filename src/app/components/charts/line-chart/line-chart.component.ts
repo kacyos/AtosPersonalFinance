@@ -1,52 +1,31 @@
-import { Component, ElementRef, ViewChild } from '@angular/core';
+import {
+  AfterViewInit,
+  Component,
+  ElementRef,
+  Input,
+  OnInit,
+  ViewChild,
+} from '@angular/core';
 import { Chart, registerables } from 'chart.js';
+import { ITransaction } from 'src/app/models/transaction.model';
+import { TransactionService } from 'src/app/services/transaction.service';
 
 @Component({
   selector: 'app-line-chart',
   templateUrl: './line-chart.component.html',
   styleUrls: [],
+  providers: [TransactionService],
 })
-export class LineChartComponent {
+export class LineChartComponent implements AfterViewInit {
   @ViewChild('chart') chart: ElementRef | undefined;
+
+  @Input() labels: string[] = [];
+  @Input() expenses: string[] = [];
+  @Input() revenues: string[] = [];
 
   constructor() {
     Chart.register(...registerables);
   }
 
-  ngAfterViewInit() {
-    new Chart(this.chart?.nativeElement, {
-      type: 'line',
-      options: {
-        responsive: true,
-      },
-      data: {
-        labels: [
-          '01/02/2023',
-          '03/02/2023',
-          '04/02/2023',
-          '05/02/2023',
-          '06/02/2023',
-          '07/02/2023',
-        ], //título
-        datasets: [
-          {
-            label: 'saídas',
-            data: [85, 72, 48, 36, 55, 48, 300],
-            borderColor: '#f82727',
-            fill: true,
-          },
-          {
-            label: 'entradas',
-            data: [32, 75, 25, 87, 33, 21, 48],
-            borderColor: '#27f885',
-          },
-          {
-            label: 'balanço',
-            data: [-32, 27, 80, 20, 35, 28, 72],
-            borderColor: '#272ef8',
-          },
-        ],
-      },
-    });
-  }
+  ngAfterViewInit() {}
 }
