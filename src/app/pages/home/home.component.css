@@ -1,0 +1,24 @@
+.logo{
+    height: 2rem;
+}
+
+.revenue, 
+.balance,
+.expense{   
+    background-repeat: no-repeat;
+    background-size: contain;  
+}
+
+.expense{
+    background-image: url("../../../assets/icons/arrow-down.svg");
+    background-color: #f8272793;
+}
+
+.revenue{
+    background-image: url("../../../assets/icons/arrow-up.svg");
+    background-color: #27f88584;
+}
+.balance{
+    background-image: url("../../../assets/icons/dolar.svg");
+    background-color: #272ef88b;
+}
