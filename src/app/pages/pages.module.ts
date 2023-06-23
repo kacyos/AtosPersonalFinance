@@ -1,13 +1,14 @@
 import { NgModule } from '@angular/core';
 import { HttpClientModule } from '@angular/common/http';
 import { CommonModule } from '@angular/common';
-import { HomeComponent } from './home.component';
-import { LineChartComponent } from '../../components/charts/line-chart/line-chart.component';
+import { DashBoardComponent } from './dash-board/dash-board.component';
 import { TransactionService } from 'src/app/services/transaction.service';
+import { CreateAccountComponent } from './account/create-account/create-account.component';
+import { LoginComponent } from './account/login/login.component';
 
 @NgModule({
-  declarations: [HomeComponent, LineChartComponent],
+  declarations: [DashBoardComponent],
   imports: [HttpClientModule, CommonModule],
   providers: [TransactionService],
 })
-export class HomeModule {}
+export class PagesModule {}

@@ -1,4 +1,3 @@
-import { transition } from '@angular/animations';
 import { Component, ElementRef, OnInit, ViewChild } from '@angular/core';
 import { Chart, registerables } from 'chart.js';
 
@@ -7,11 +6,11 @@ import { TransactionService } from 'src/app/services/transaction.service';
 import { ArrayTransForm } from 'src/app/utils/arrayTransform';
 
 @Component({
-  selector: 'app-home',
-  templateUrl: './home.component.html',
-  styleUrls: ['./home.component.css'],
+  selector: 'app-dash-board',
+  templateUrl: './dash-board.component.html',
+  styleUrls: ['./dash-board.component.css'],
 })
-export class HomeComponent implements OnInit {
+export class DashBoardComponent {
   @ViewChild('chart') chart: ElementRef | undefined;
   labels: string[] = [];
   expenses: number[] = [];

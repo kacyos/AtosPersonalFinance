@@ -1,0 +1,35 @@
+<div>
+  <div class="row d-flex mt-4 mx-5 justify-content-center gap-4">
+    <div class="card col-md-3 col-xl-2 col-sm-4 revenue">
+      <span class="indentify"></span>
+      <div class="card-body">
+        <h5 class="card-title text-center">Entradas</h5>
+        <p class="text-center">{{ totalRevenues }}</p>
+      </div>
+    </div>
+    <div class="card col-md-3 col-xl-2 col-sm-4 expense">
+      <div class="card-body">
+        <h5 class="card-title text-center">Saídas</h5>
+        <p class="text-center">{{ totalExpenses }}</p>
+      </div>
+    </div>
+
+    <div class="card col-md-3 col-xl-2 col-sm-4 balance">
+      <span class="indentify"></span>
+      <div class="card-body">
+        <div class="">
+          <h5 class="card-title text-center">Balanço</h5>
+          <p class="text-center">{{ balance }}</p>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <div
+    class="row d-flex justify-content-center align-itenms-center mt-4 w-auto"
+  >
+    <div class="col-md-7 d-flex mx-auto col-sm-12">
+      <canvas #chart></canvas>
+    </div>
+  </div>
+</div>

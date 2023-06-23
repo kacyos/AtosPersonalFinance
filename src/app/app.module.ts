@@ -3,13 +3,24 @@ import { BrowserModule } from '@angular/platform-browser';
 
 import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
-import { AccountModule } from './pages/account/account.module';
-import { HomeModule } from './pages/home/home.module';
+import { HomeComponent } from './layout/home/home.component';
+import { AuthenticationComponent } from './layout/authentication/authentication.component';
+import { LoginComponent } from './pages/account/login/login.component';
+import { CreateAccountComponent } from './pages/account/create-account/create-account.component';
+import { PagesModule } from './pages/pages.module';
+import { FormsModule } from '@angular/forms';
+import { httpInterceptorProviders } from './http-interceptors';
 
 @NgModule({
-  declarations: [AppComponent],
-  imports: [BrowserModule, AppRoutingModule, AccountModule, HomeModule],
-  providers: [],
+  declarations: [
+    AppComponent,
+    HomeComponent,
+    AuthenticationComponent,
+    LoginComponent,
+    CreateAccountComponent,
+  ],
+  imports: [BrowserModule, AppRoutingModule, PagesModule, FormsModule],
+  providers: [FormsModule, httpInterceptorProviders],
   bootstrap: [AppComponent],
 })
 export class AppModule {}
