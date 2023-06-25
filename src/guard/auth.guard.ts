@@ -1,6 +1,6 @@
 import { Injectable } from '@angular/core';
 import { Router } from '@angular/router';
-import { AccountService } from './account.service';
+import { AccountService } from '../app/services/account.service';
 
 // generated guard and modified to use localStorage
 @Injectable({ providedIn: 'root' })

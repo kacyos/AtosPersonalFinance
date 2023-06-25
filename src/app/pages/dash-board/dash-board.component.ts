@@ -29,43 +29,10 @@ export class DashBoardComponent {
     });
 
     this.transactionService
-      .getLastTransactionsFromSevenDays(1)
+      .getLastTransactionsFromSevenDays()
       .subscribe((transaction) => {
         const { labels, expenses, revenues } = this.transformArray(transaction);
-        new Chart(this.chart?.nativeElement, {
-          type: 'line',
-          options: {
-            responsive: true,
-            plugins: {
-              tooltip: {
-                callbacks: {
-                  label: (context: any) => {
-                    if (context.dataset.label === 'entradas') {
-                      return `Entrada - R$ ${context.parsed.y}`;
-                    }
-                    return `Saída - R$ ${context.parsed.y}`;
-                  },
-                },
-              },
-            },
-          },
-          data: {
-            labels: labels, //título
-            datasets: [
-              {
-                label: 'saídas',
-                data: expenses,
-                borderColor: '#f82727',
-                fill: true,
-              },
-              {
-                label: 'entradas',
-                data: revenues,
-                borderColor: '#27f885',
-              },
-            ],
-          },
-        });
+        this.generateChart(labels, expenses, revenues);
       });
   }
 
@@ -73,8 +40,12 @@ export class DashBoardComponent {
     const labels: string[] = [];
     const expenses: number[] = [];
     const revenues: number[] = [];
+    const balance: number[] = [];
 
-    ArrayTransForm.groupByDayAndType(transactions).forEach((transaction) => {
+    const transactionsGrouped = ArrayTransForm.groupByDayAndType(transactions);
+
+    // Separa as transações por tipo
+    transactionsGrouped.forEach((transaction) => {
       labels.push(transaction.date.toString());
       if (transaction.type === 'expense') {
         expenses.push(transaction.value);
@@ -108,6 +79,43 @@ export class DashBoardComponent {
     this.balance = (revenues - expenses).toLocaleString('pt-br', {
       style: 'currency',
       currency: 'BRL',
+    });
+  }
+
+  generateChart(labels: string[], expenses: number[], revenues: number[]) {
+    return new Chart(this.chart?.nativeElement, {
+      type: 'line',
+      options: {
+        responsive: true,
+        plugins: {
+          tooltip: {
+            callbacks: {
+              label: (context: any) => {
+                if (context.dataset.label === 'entradas') {
+                  return `Entrada - R$ ${context.parsed.y}`;
+                }
+                return `Saída - R$ ${context.parsed.y}`;
+              },
+            },
+          },
+        },
+      },
+      data: {
+        labels: labels, //título
+        datasets: [
+          {
+            label: 'saídas',
+            data: expenses,
+            borderColor: '#f82727',
+            fill: true,
+          },
+          {
+            label: 'entradas',
+            data: revenues,
+            borderColor: '#27f885',
+          },
+        ],
+      },
     });
   }
 }

@@ -23,9 +23,11 @@ export class ArrayTransForm {
         groupedData[key] = {
           ...obj,
         };
+      } else {
+        groupedData[key].value += obj.value;
       }
+
       groupedData[key].date = formattedDate;
-      groupedData[key].value += obj.value;
     }
 
     for (const key in groupedData) {

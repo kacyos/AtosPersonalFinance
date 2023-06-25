@@ -4,8 +4,9 @@ import { LoginComponent } from './pages/account/login/login.component';
 import { CreateAccountComponent } from './pages/account/create-account/create-account.component';
 import { HomeComponent } from './layout/home/home.component';
 import { AuthenticationComponent } from './layout/authentication/authentication.component';
-import { authGuard } from './pages/account/shared/auth.guard';
+import { authGuard } from '../guard/auth.guard';
 import { DashBoardComponent } from './pages/dash-board/dash-board.component';
+import { TransactionsComponent } from './pages/transactions/transactions.component';
 
 const routes: Routes = [
   {
@@ -15,6 +16,10 @@ const routes: Routes = [
       {
         path: '',
         component: DashBoardComponent,
+      },
+      {
+        path: 'transactions',
+        component: TransactionsComponent,
       },
     ],
     canActivate: [authGuard],

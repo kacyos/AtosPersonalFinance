@@ -1,3 +1,5 @@
+import { ICategory } from './category.model';
+
 export interface ITransaction {
   id: number;
   type: string;
@@ -5,4 +7,5 @@ export interface ITransaction {
   date: string;
   userId: number;
   categoryId: number;
+  category?: ICategory;
 }

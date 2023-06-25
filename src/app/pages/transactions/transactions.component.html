@@ -1,0 +1,45 @@
+<div class="table-responsive">
+  <table class="table align-middle">
+    <thead>
+      <tr>
+        <th>Data</th>
+        <th>Categoria</th>
+        <th>Tipo</th>
+        <th>Valor R$</th>
+        <th></th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr *ngFor="let transaction of transactions">
+        <td
+          [ngClass]="transaction.type == 'Saída' ? 'red-50' : 'green-50'"
+          class="align-top"
+        >
+          {{ transaction.date | date : "dd/MM/yyyy" }}
+        </td>
+        <td
+          [ngClass]="transaction.type == 'Saída' ? 'red-50' : 'green-50'"
+          class="align-top"
+        >
+          {{ transaction.category?.name }}
+        </td>
+        <td
+          [ngClass]="transaction.type == 'Saída' ? 'red-50' : 'green-50'"
+          class="align-top"
+        >
+          {{ transaction.type }}
+        </td>
+        <td
+          [ngClass]="transaction.type == 'Saída' ? 'red-50' : 'green-50'"
+          class="align-top"
+        >
+          {{ transaction.value | currency : "BRL" }}
+        </td>
+        <td class="align-top d-flex gap-2">
+          <button class="btn btn-sm btn-outline-primary">editar</button>
+          <button class="btn btn-sm btn-outline-danger">excluir</button>
+        </td>
+      </tr>
+    </tbody>
+  </table>
+</div>

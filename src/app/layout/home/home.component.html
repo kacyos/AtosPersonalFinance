@@ -19,10 +19,12 @@
       <div class="collapse navbar-collapse" id="navbarNav">
         <ul class="navbar-nav">
           <li class="nav-item">
-            <a class="nav-link active" aria-current="page" href="#">Home</a>
+            <a class="nav-link active" aria-current="page" [routerLink]="['/']"
+              >Home</a
+            >
           </li>
           <li class="nav-item">
-            <a class="nav-link" href="#">Transações</a>
+            <a class="nav-link" [routerLink]="['transactions']">Transações</a>
           </li>
           <li class="nav-item">
             <a class="nav-link" href="#">Relatórios</a>
@@ -33,7 +35,7 @@
   </nav>
 </header>
 <section>
-  <main class="container-fluid">
+  <main class="container">
     <router-outlet></router-outlet>
   </main>
 </section>

@@ -1,5 +1,5 @@
 import { Injectable } from '@angular/core';
-import { AccountService } from '../pages/account/shared/account.service';
+import { AccountService } from '../services/account.service';
 
 import {
   HttpErrorResponse,
@@ -9,19 +9,21 @@ import {
 } from '@angular/common/http';
 import { throwError } from 'rxjs';
 import { catchError } from 'rxjs/operators';
+import { CookiesManagerService } from '../services/cookies-manager.service';
 
 @Injectable()
 export class AuthInterceptor implements HttpInterceptor {
-  constructor(private accountService: AccountService) {}
+  constructor(private cookiesManagerService: CookiesManagerService) {}
 
   intercept(req: HttpRequest<any>, next: HttpHandler) {
-    const token = this.accountService.getToken();
+    const { token } = this.cookiesManagerService.getCookie();
     let request: HttpRequest<any> = req;
 
     if (token) {
       request = req.clone({
         headers: req.headers.set('Authorization', `Bearer ${token}`),
       });
+      console.log(request);
     }
 
     return next.handle(request).pipe(catchError(this.handleError));
