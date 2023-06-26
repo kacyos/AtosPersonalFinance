@@ -21,23 +21,13 @@ export class AccountService {
   };
 
   login(user: IUser) {
-    return this.http
-      .post<{
-        user: IUser;
-        token: string;
-      }>(`${API}/user/login`, {
-        userName: user.userName,
-        password: user.password,
-      })
-      .subscribe((response) => {
-        localStorage.setItem('token', response.token);
-        const cookieValue = JSON.stringify({
-          id: response.user.id,
-          name: response.user.firstName,
-          token: response.token,
-        });
-        this.cookiesManagerService.setCookie(cookieValue);
-      });
+    return this.http.post<{
+      user: IUser;
+      token: string;
+    }>(`${API}/user/login`, {
+      userName: user.userName,
+      password: user.password,
+    });
   }
 
   createAccount(user: IUser) {
