@@ -5,6 +5,7 @@ import { ITransaction } from 'src/app/models/transaction.model';
 import { CategoryService } from 'src/app/services/category.service';
 import { TransactionService } from 'src/app/services/transaction.service';
 import { DateConverter } from 'src/app/utils/date';
+declare var bootstrap: any;
 
 @Component({
   selector: 'app-transactions',
@@ -40,6 +41,7 @@ export class TransactionsComponent {
       value: new FormControl('', [Validators.required, Validators.min(10)]),
       category_id: new FormControl('', [Validators.required]),
       date: new FormControl('', [Validators.required]),
+      description: new FormControl(''),
     });
   }
 
@@ -59,6 +61,10 @@ export class TransactionsComponent {
     return this.transactionForm.get('date')!.value;
   }
 
+  get description() {
+    return this.transactionForm.get('description')!;
+  }
+
   getAllCategories() {
     this.categoryService.getAllCategories().subscribe((categories) => {
       console.log(categories);
@@ -71,7 +77,7 @@ export class TransactionsComponent {
   getAllTransactions() {
     this.transactionService.getAllTransactions().subscribe((transactions) => {
       transactions.forEach((transaction) => {
-        this.transactions.push({
+        this.transactions.unshift({
           ...transaction,
           type: transaction.type === 'revenue' ? 'Entrada' : 'Saída',
         });
@@ -80,7 +86,6 @@ export class TransactionsComponent {
   }
 
   onSubmit() {
-    console.log(DateConverter.ConvetDateInput(this.date));
     this.transactionService
       .postCreateTransaction({
         ...this.transactionForm.value,
@@ -88,11 +93,14 @@ export class TransactionsComponent {
       })
 
       .subscribe((transaction) => {
+        console.log(transaction);
         this.transactions.push({
           ...transaction,
           type: transaction.type === 'revenue' ? 'Entrada' : 'Saída',
         });
       });
+    this.transactionForm.reset();
+    this.transactionForm.clearValidators();
   }
   openModal(transaction: ITransaction) {
     this.transactionSelected = transaction;

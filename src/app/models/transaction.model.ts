@@ -8,4 +8,5 @@ export interface ITransaction {
   userId: number;
   categoryId: number;
   category?: ICategory;
+  description?: string;
 }

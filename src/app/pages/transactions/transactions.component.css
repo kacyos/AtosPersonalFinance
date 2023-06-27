@@ -6,3 +6,10 @@
     background-color: #009e47bb;
 }
 
+.description{
+    display: inline-block;
+    max-width:  15ch;
+    overflow: hidden;
+    white-space: nowrap;
+    text-overflow: ellipsis ;
+}

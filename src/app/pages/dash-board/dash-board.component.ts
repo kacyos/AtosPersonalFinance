@@ -12,9 +12,7 @@ import { ArrayTransForm } from 'src/app/utils/arrayTransform';
 })
 export class DashBoardComponent {
   @ViewChild('chart') chart: ElementRef | undefined;
-  labels: string[] = [];
-  expenses: number[] = [];
-  revenues: number[] = [];
+
   totalExpenses: string = '0';
   totalRevenues: string = '0';
   balance: string = '0';
@@ -31,40 +29,79 @@ export class DashBoardComponent {
     this.transactionService
       .getLastTransactionsFromSevenDays()
       .subscribe((transaction) => {
-        const { labels, expenses, revenues } = this.transformArray(transaction);
-        this.generateChart(labels, expenses, revenues);
+        const { labels, expenses, revenues } =
+          this.sepateDataFromArray(transaction);
+        const { arrayExpenses, arrayRevenues } = this.transformArrayByChart(
+          expenses,
+          revenues,
+          labels
+        );
+        this.generateChart(labels, arrayExpenses, arrayRevenues);
       });
   }
 
-  transformArray(transactions: ITransaction[]) {
+  sepateDataFromArray(transactions: ITransaction[]) {
     const labels: string[] = [];
-    const expenses: number[] = [];
-    const revenues: number[] = [];
-    const balance: number[] = [];
+    const expenses: ITransaction[] = [];
+    const revenues: ITransaction[] = [];
 
     const transactionsGrouped = ArrayTransForm.groupByDayAndType(transactions);
 
-    // Separa as transações por tipo
+    // Separa as transações por tipo e adiciona as datas em um array
     transactionsGrouped.forEach((transaction) => {
-      labels.push(transaction.date.toString());
+      let date = transaction.date.toString();
+
+      if (!labels.includes(date)) {
+        labels.push(date);
+      }
+
       if (transaction.type === 'expense') {
-        expenses.push(transaction.value);
-      } else {
-        revenues.push(transaction.value);
+        expenses.push(transaction);
+      }
+
+      if (transaction.type === 'revenue') {
+        revenues.push(transaction);
       }
     });
 
     return { labels, expenses, revenues };
   }
 
+  transformArrayByChart(
+    expenses: ITransaction[],
+    revenues: ITransaction[],
+    labels: string[]
+  ) {
+    const arrayExpenses: number[] = [];
+    const arrayRevenues: number[] = [];
+
+    labels.forEach((label) => {
+      const expense = expenses.find((expense) => expense.date === label);
+      if (expense) {
+        arrayExpenses.push(expense.value);
+      } else {
+        arrayExpenses.push(0);
+      }
+
+      const revenue = revenues.find((revenue) => revenue.date === label);
+      if (revenue) {
+        arrayRevenues.push(revenue.value);
+      } else {
+        arrayRevenues.push(0);
+      }
+    });
+
+    return { arrayExpenses, arrayRevenues };
+  }
+
   sumExpensesAndRevenues(array: ITransaction[]) {
     let expenses: number = 0;
     let revenues: number = 0;
     const { expenses: arrayExpenses, revenues: arrayRevenues } =
-      this.transformArray(array);
+      this.sepateDataFromArray(array);
 
-    arrayExpenses.forEach((value) => (expenses += value));
-    arrayRevenues.forEach((value) => (revenues += value));
+    arrayExpenses.forEach((item) => (expenses += item.value));
+    arrayRevenues.forEach((item) => (revenues += item.value));
 
     this.totalRevenues = revenues.toLocaleString('pt-br', {
       style: 'currency',
