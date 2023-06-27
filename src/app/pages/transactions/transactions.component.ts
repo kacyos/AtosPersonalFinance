@@ -1,4 +1,5 @@
-import { Component } from '@angular/core';
+import { Component, Input } from '@angular/core';
+import { FormControl, FormGroup, Validators } from '@angular/forms';
 import { ICategory } from 'src/app/models/category.model';
 import { ITransaction } from 'src/app/models/transaction.model';
 import { CategoryService } from 'src/app/services/category.service';
@@ -14,14 +15,8 @@ export class TransactionsComponent {
   transactions: ITransaction[] = [];
   categories: ICategory[] = [];
 
-  newTransaction = {
-    type: '',
-    value: 0,
-    date: '',
-    categoryId: 0,
-  };
+  transactionForm!: FormGroup;
 
-  typeSelected = '';
   transactionSelected: ITransaction = {
     id: 0,
     type: '',
@@ -37,6 +32,43 @@ export class TransactionsComponent {
   ) {}
 
   ngOnInit() {
+    this.getAllTransactions();
+    this.getAllCategories();
+
+    this.transactionForm = new FormGroup({
+      type: new FormControl('', [Validators.required]),
+      value: new FormControl('', [Validators.required, Validators.min(10)]),
+      category_id: new FormControl('', [Validators.required]),
+      date: new FormControl('', [Validators.required]),
+    });
+  }
+
+  get type() {
+    return this.transactionForm.get('type')!;
+  }
+
+  get value() {
+    return this.transactionForm.get('value')!;
+  }
+
+  get category_id() {
+    return this.transactionForm.get('category_id')!;
+  }
+
+  get date() {
+    return this.transactionForm.get('date')!.value;
+  }
+
+  getAllCategories() {
+    this.categoryService.getAllCategories().subscribe((categories) => {
+      console.log(categories);
+      this.categories = categories;
+    });
+
+    console.log(this.transactionForm);
+  }
+
+  getAllTransactions() {
     this.transactionService.getAllTransactions().subscribe((transactions) => {
       transactions.forEach((transaction) => {
         this.transactions.push({
@@ -45,13 +77,23 @@ export class TransactionsComponent {
         });
       });
     });
-
-    this.categoryService.getAllCategories().subscribe((categories) => {
-      console.log(categories);
-      this.categories = categories;
-    });
   }
 
+  onSubmit() {
+    console.log(DateConverter.ConvetDateInput(this.date));
+    this.transactionService
+      .postCreateTransaction({
+        ...this.transactionForm.value,
+        date: DateConverter.ConvetDateInput(this.date),
+      })
+
+      .subscribe((transaction) => {
+        this.transactions.push({
+          ...transaction,
+          type: transaction.type === 'revenue' ? 'Entrada' : 'Saída',
+        });
+      });
+  }
   openModal(transaction: ITransaction) {
     this.transactionSelected = transaction;
     console.log(transaction);

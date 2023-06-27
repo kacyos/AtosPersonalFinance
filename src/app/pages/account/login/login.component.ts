@@ -21,7 +21,7 @@ export class LoginComponent {
 
   ngOnInit() {
     if (this.accountService.isUserLoggedIn()) {
-      this.router.navigate(['/home']);
+      this.router.navigate(['/']);
     }
   }
 
@@ -35,7 +35,7 @@ export class LoginComponent {
           token: response.token,
         });
         this.cookiesManagerService.setCookie(cookieValue);
-        this.router.navigate(['/home']);
+        this.router.navigate(['/']);
       });
     } catch (error) {
       console.log(error);

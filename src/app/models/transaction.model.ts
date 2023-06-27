@@ -1,7 +1,7 @@
 import { ICategory } from './category.model';
 
 export interface ITransaction {
-  id: number;
+  id?: number;
   type: string;
   value: number;
   date: string;

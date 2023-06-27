@@ -1,36 +1,101 @@
 <div class="d-flex gap-4 mx-auto mt-4 flex-column justify-content-center w-75">
-  <form action="" class="container d-flex flex-column gap-4">
+  <form
+    class="container d-flex flex-column gap-4"
+    (ngSubmit)="onSubmit()"
+    [formGroup]="transactionForm"
+    #formDir="ngForm"
+  >
     <div class="row">
       <div class="col-4">
-        <label class="" for="">Options</label>
-        <select class="form-select" id="">
-          <option selected>Selecione o tipo</option>
-          <option>Entrada</option>
-          <option>Saída</option>
+        <label for="types">Tipo de transação</label>
+        <select
+          id="types"
+          class="form-select"
+          [ngClass]="type.invalid && formDir.submitted ? 'is-invalid' : ''"
+          formControlName="type"
+          required
+        >
+          <option [defaultSelected]="true" disabled>Selecione o tipo</option>
+          <option value="revenue" id="4">Entrada</option>
+          <option value="expense">Saída</option>
         </select>
+        <div class="invalid-feedback" *ngIf="type.errors?.['required']">
+          <ng-container> Selecione o tipo de transação </ng-container>
+        </div>
       </div>
 
       <div class="col-6">
-        <label class="" for="">Options</label>
-        <select class="form-select" id="">
-          <option selected>Selecione a categoria</option>
-          <option
-            *ngFor="let category of categories"
-            ngIf="category.type == typeSelected"
-            value="[category.name]"
-          >
-            {{ category.name }}
+        <label for="categories">Categoria</label>
+        <select
+          id="categories"
+          class="form-select"
+          [ngClass]="
+            category_id.invalid && formDir.submitted ? 'is-invalid' : ''
+          "
+          formControlName="category_id"
+          required
+        >
+          <option disabled [defaultSelected]="true">
+            Selecione a categoria
           </option>
+          <ng-container *ngFor="let category of categories">
+            <option
+              [ngValue]="category.id"
+              *ngIf="category.type === formDir.value.type"
+            >
+              {{ category.name }}
+            </option>
+          </ng-container>
         </select>
+        <div class="invalid-feedback" *ngIf="category_id.errors?.['required']">
+          <ng-container> Selecione a categoria </ng-container>
+        </div>
       </div>
     </div>
 
     <div class="row">
       <div class="col-6">
-        <input class="form-control" type="text" />
+        <label for="value">Valor da transação</label>
+        <div class="input-group mb-3">
+          <span class="input-group-text">R$</span>
+          <input
+            id="value"
+            formControlName="value"
+            type="text"
+            [ngClass]="
+              category_id.invalid && formDir.submitted ? 'is-invalid' : ''
+            "
+            class="form-control"
+            mask="separator"
+            thousandSeparator="."
+            required
+          />
+          <div class="invalid-feedback">
+            <ng-container *ngIf="value.errors?.['required']">
+              Informe o valor
+            </ng-container>
+            <ng-container *ngIf="value.errors?.['min']">
+              Informe um valor maior que 0
+            </ng-container>
+          </div>
+        </div>
       </div>
-      <div class="col-6">
-        <input class="form-control" type="text" />
+      <div class="col-4">
+        <label for="date">Data da transação</label>
+        <input
+          id="date"
+          type="date"
+          class="form-control"
+          formControlName="date"
+          [ngClass]="
+            category_id.invalid && formDir.submitted ? 'is-invalid' : ''
+          "
+        />
+        <div class="invalid-feedback">
+          <ng-container *ngIf="value.errors?.['required']">
+            Informe a data
+          </ng-container>
+        </div>
       </div>
     </div>
 

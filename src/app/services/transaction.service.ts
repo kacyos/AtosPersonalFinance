@@ -31,4 +31,13 @@ export class TransactionService {
       `${API}/last-seven-days?user_id=${this.userId}`
     );
   }
+
+  postCreateTransaction(transaction: ITransaction) {
+    console;
+    return this.http.post<ITransaction>(
+      `${API}/create?user_id=${this.userId}`,
+      transaction,
+      this.httpOptions
+    );
+  }
 }

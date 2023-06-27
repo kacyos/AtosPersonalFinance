@@ -6,4 +6,15 @@ export class DateConverter {
       year: 'numeric',
     });
   }
+
+  /**
+   * Converte uma data do formato "AAAA-MM-DD" para "DD/MM/AAAA".
+   * @param date A data no formato "AAAA-MM-DD".
+   * @returns A data convertida no formato "DD/MM/AAAA".
+   */
+  public static ConvetDateInput(date: string) {
+    const [year, month, day] = date.split('-');
+
+    return `${day}/${month}/${year}`;
+  }
 }

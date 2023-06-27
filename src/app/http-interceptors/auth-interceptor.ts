@@ -39,7 +39,9 @@ export class AuthInterceptor implements HttpInterceptor {
     }
 
     return throwError(
-      () => 'Ocorreu um erro na aplicação, tente novamente mais tarde.'
+      () =>
+        'Ocorreu um erro na aplicação, tente novamente mais tarde. ' +
+        error.error.message
     );
   }
 }
