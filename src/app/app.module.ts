@@ -19,6 +19,8 @@ import {
   provideEnvironmentNgxMask,
 } from 'ngx-mask';
 import { httpInterceptorProviders } from './http-interceptors';
+import { EditTransactionComponent } from './components/modal/edit-transaction/edit-transaction.component';
+import { FormTransactionComponent } from './components/form-transaction/form-transaction.component';
 
 @NgModule({
   declarations: [
@@ -29,6 +31,8 @@ import { httpInterceptorProviders } from './http-interceptors';
     LoginComponent,
     CreateAccountComponent,
     TransactionsComponent,
+    EditTransactionComponent,
+    FormTransactionComponent,
   ],
   imports: [
     BrowserModule,
