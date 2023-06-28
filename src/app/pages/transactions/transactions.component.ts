@@ -67,11 +67,8 @@ export class TransactionsComponent {
 
   getAllCategories() {
     this.categoryService.getAllCategories().subscribe((categories) => {
-      console.log(categories);
       this.categories = categories;
     });
-
-    console.log(this.transactionForm);
   }
 
   getAllTransactions() {
@@ -86,6 +83,9 @@ export class TransactionsComponent {
   }
 
   onSubmit() {
+    if (this.transactionForm.invalid) {
+      return;
+    }
     this.transactionService
       .postCreateTransaction({
         ...this.transactionForm.value,
@@ -100,10 +100,9 @@ export class TransactionsComponent {
         });
       });
     this.transactionForm.reset();
-    this.transactionForm.clearValidators();
   }
+
   openModal(transaction: ITransaction) {
     this.transactionSelected = transaction;
-    console.log(transaction);
   }
 }

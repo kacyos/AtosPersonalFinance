@@ -62,14 +62,13 @@
             id="value"
             formControlName="value"
             type="text"
-            [ngClass]="
-              category_id.invalid && formDir.submitted ? 'is-invalid' : ''
-            "
+            [ngClass]="value.invalid && formDir.submitted ? 'is-invalid' : ''"
             class="form-control"
             mask="separator"
             thousandSeparator="."
             required
           />
+
           <div class="invalid-feedback">
             <ng-container *ngIf="value.errors?.['required']">
               Informe o valor
@@ -80,19 +79,20 @@
           </div>
         </div>
       </div>
+
       <div class="col-md-4 col-sm-12">
         <label for="date">Data da transação</label>
         <input
-          id="date"
           type="date"
+          id="date"
           class="form-control"
+          [ngClass]="date.invalid && formDir.submitted ? 'is-invalid' : ''"
           formControlName="date"
-          [ngClass]="
-            category_id.invalid && formDir.submitted ? 'is-invalid' : ''
-          "
+          required
         />
+        {{ date.pristine }}
         <div class="invalid-feedback">
-          <ng-container *ngIf="value.errors?.['required']">
+          <ng-container *ngIf="!date.errors?.['required']">
             Informe a data
           </ng-container>
         </div>
