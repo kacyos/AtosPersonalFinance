@@ -7,11 +7,11 @@ import { TransactionService } from 'src/app/services/transaction.service';
 import { DateConverter } from 'src/app/utils/date';
 
 @Component({
-  selector: 'app-form-transaction',
-  templateUrl: './form-transaction.component.html',
-  styleUrls: ['./form-transaction.component.css'],
+  selector: 'app-form-create-transaction',
+  templateUrl: './create-transaction.component.html',
+  styleUrls: ['./create-transaction.component.css'],
 })
-export class FormCreateTransactionComponent implements OnInit {
+export class CreateTransactionComponent implements OnInit {
   constructor(
     private transactionService: TransactionService,
     private categoryService: CategoryService

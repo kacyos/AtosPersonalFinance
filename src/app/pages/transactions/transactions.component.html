@@ -1,7 +1,7 @@
 <div class="d-flex gap-4 mx-auto mt-4 flex-column justify-content-center w-75">
-  <app-form-transaction
+  <app-form-create-transaction
     (registerNewTransaction)="createNewTransaction($event)"
-  ></app-form-transaction>
+  ></app-form-create-transaction>
 
   <div class="table-responsive">
     <table class="table table-hover table-secondary">
@@ -60,5 +60,5 @@
   </div>
 </div>
 
-<app-edit-transaction [transactionEdit]="transactionEdit">
-</app-edit-transaction>
+<app-modal-edit-transaction [transactionEdit]="transactionEdit">
+</app-modal-edit-transaction>
