@@ -5,7 +5,6 @@ import { ITransaction } from 'src/app/models/transaction.model';
 import { CategoryService } from 'src/app/services/category.service';
 import { TransactionService } from 'src/app/services/transaction.service';
 import { DateConverter } from 'src/app/utils/date';
-declare var bootstrap: any;
 
 @Component({
   selector: 'app-transactions',
@@ -38,9 +37,9 @@ export class TransactionsComponent {
 
     this.transactionForm = new FormGroup({
       type: new FormControl('', [Validators.required]),
-      value: new FormControl('', [Validators.required, Validators.min(10)]),
       category_id: new FormControl('', [Validators.required]),
       date: new FormControl('', [Validators.required]),
+      value: new FormControl('', [Validators.required, Validators.min(10)]),
       description: new FormControl(''),
     });
   }
@@ -74,7 +73,7 @@ export class TransactionsComponent {
   getAllTransactions() {
     this.transactionService.getAllTransactions().subscribe((transactions) => {
       transactions.forEach((transaction) => {
-        this.transactions.unshift({
+        this.transactions.push({
           ...transaction,
           type: transaction.type === 'revenue' ? 'Entrada' : 'Saída',
         });
@@ -94,7 +93,7 @@ export class TransactionsComponent {
 
       .subscribe((transaction) => {
         console.log(transaction);
-        this.transactions.push({
+        this.transactions.unshift({
           ...transaction,
           type: transaction.type === 'revenue' ? 'Entrada' : 'Saída',
         });
