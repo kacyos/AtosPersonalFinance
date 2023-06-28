@@ -63,7 +63,7 @@ export class DashBoardComponent {
         revenues.push(transaction);
       }
     });
-
+    labels.sort();
     return { labels, expenses, revenues };
   }
 
