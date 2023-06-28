@@ -11,7 +11,7 @@ import { DateConverter } from 'src/app/utils/date';
   templateUrl: './form-transaction.component.html',
   styleUrls: ['./form-transaction.component.css'],
 })
-export class FormTransactionComponent implements OnInit {
+export class FormCreateTransactionComponent implements OnInit {
   constructor(
     private transactionService: TransactionService,
     private categoryService: CategoryService
@@ -20,9 +20,10 @@ export class FormTransactionComponent implements OnInit {
   @Output()
   registerNewTransaction = new EventEmitter<any>();
   @Input()
-  formType!: string;
+  transactionEdit?: ITransaction;
 
   categories: ICategory[] = [];
+
   transactionForm!: FormGroup;
 
   ngOnInit(): void {
@@ -32,8 +33,11 @@ export class FormTransactionComponent implements OnInit {
       type: new FormControl('', [Validators.required]),
       category_id: new FormControl('', [Validators.required]),
       date: new FormControl('', [Validators.required]),
-      value: new FormControl('', [Validators.required, Validators.min(10)]),
-      description: new FormControl(''),
+      value: new FormControl('', [Validators.required, Validators.min(1)]),
+      description: new FormControl('', [
+        Validators.maxLength(50),
+        Validators.nullValidator,
+      ]),
     });
   }
 
@@ -52,23 +56,16 @@ export class FormTransactionComponent implements OnInit {
       return;
     }
 
-    if (this.formType === 'create') {
-      this.transactionService
-        .postCreateTransaction({
-          ...this.transactionForm.value,
-          date: DateConverter.ConvetDateInput(this.date),
-        })
+    this.transactionService
+      .postCreateTransaction({
+        ...this.transactionForm.value,
+        date: DateConverter.ConvetDateInput(this.date),
+      })
 
-        .subscribe((transaction) => {
-          this.create(transaction);
-        });
-      this.transactionForm.reset();
-    }
-
-    if (this.formType === 'edit') {
-      console.log('Editando transação');
-      //this.transactionService.updateTransaction(this.transactionForm.value);
-    }
+      .subscribe((transaction) => {
+        this.create(transaction);
+      });
+    this.transactionForm.reset();
   }
 
   get type() {

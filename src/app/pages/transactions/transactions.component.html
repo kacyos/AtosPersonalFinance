@@ -1,6 +1,5 @@
 <div class="d-flex gap-4 mx-auto mt-4 flex-column justify-content-center w-75">
   <app-form-transaction
-    [formType]="'create'"
     (registerNewTransaction)="createNewTransaction($event)"
   ></app-form-transaction>
 
@@ -47,7 +46,7 @@
                 class="btn btn-sm btn-outline-primary"
                 data-bs-toggle="modal"
                 data-bs-target="#exampleModal"
-                (click)="transactionEdit = transaction"
+                (click)="editTransaction(transaction)"
               >
                 editar
               </button>
@@ -61,4 +60,5 @@
   </div>
 </div>
 
-<app-edit-transaction [transaction]="transactionEdit"></app-edit-transaction>
+<app-edit-transaction [transactionEdit]="transactionEdit">
+</app-edit-transaction>

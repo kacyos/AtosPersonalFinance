@@ -18,7 +18,36 @@
         ></button>
       </div>
 
-      <div class="modal-body"></div>
+      <div class="modal-body">
+        <div class="mx-auto w-75 rounded w-fitcontent p-2 mb-4 bg-info">
+          <div class="row text-center">
+            <span class="col-12"
+              >Tipo de transação: {{ transactionEdit?.type }}</span
+            >
+            <span class="col-12 text-center"
+              >Categoria: {{ transactionEdit?.category?.name }}</span
+            >
+          </div>
+          <div class="row">
+            <span class="col-12 text-center"
+              >valor da transação: {{ transactionEdit?.value }}</span
+            >
+            <span class="col-12 text-center"
+              >Data da transação:
+              {{ transactionEdit?.date | date : "dd/MM/yyyy" }}</span
+            >
+          </div>
+          <div class="row">
+            <span class="col-12 description"
+              >Descrição: {{ transactionEdit?.description }}</span
+            >
+          </div>
+        </div>
+
+        <div>
+          <ng-content></ng-content>
+        </div>
+      </div>
 
       <div class="modal-footer">
         <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">

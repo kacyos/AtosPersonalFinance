@@ -8,9 +8,8 @@ import { TransactionService } from 'src/app/services/transaction.service';
   styleUrls: ['./transactions.component.css'],
 })
 export class TransactionsComponent {
-  formType = 'create';
   transactions: ITransaction[] = [];
-  transactionEdit!: ITransaction;
+  transactionEdit?: ITransaction;
 
   constructor(private transactionService: TransactionService) {}
 
@@ -27,6 +26,10 @@ export class TransactionsComponent {
         });
       });
     });
+  }
+
+  editTransaction(transaction: ITransaction) {
+    this.transactionEdit = transaction;
   }
 
   createNewTransaction(transaction: ITransaction) {

@@ -8,5 +8,11 @@ import { ITransaction } from 'src/app/models/transaction.model';
 })
 export class EditTransactionComponent {
   @Input()
-  transaction?: ITransaction;
+  transactionEdit?: ITransaction;
+
+  constructor() {}
+
+  ngOnInit(): void {
+    console.log({ tyep: this.transactionEdit });
+  }
 }

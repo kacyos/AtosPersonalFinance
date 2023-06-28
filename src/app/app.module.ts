@@ -20,7 +20,7 @@ import {
 } from 'ngx-mask';
 import { httpInterceptorProviders } from './http-interceptors';
 import { EditTransactionComponent } from './components/modal/edit-transaction/edit-transaction.component';
-import { FormTransactionComponent } from './components/form-transaction/form-transaction.component';
+import { FormCreateTransactionComponent } from './components/forms/create-transacrion/form-transaction.component';
 
 @NgModule({
   declarations: [
@@ -32,7 +32,7 @@ import { FormTransactionComponent } from './components/form-transaction/form-tra
     CreateAccountComponent,
     TransactionsComponent,
     EditTransactionComponent,
-    FormTransactionComponent,
+    FormCreateTransactionComponent,
   ],
   imports: [
     BrowserModule,
