@@ -6,7 +6,7 @@ import { ITransaction } from 'src/app/models/transaction.model';
   templateUrl: './edit-transaction.component.html',
   styleUrls: ['./edit-transaction.component.css'],
 })
-export class EditTransactionComponent {
+export class ModalEditTransactionComponent {
   @Input()
   transactionEdit?: ITransaction;
 

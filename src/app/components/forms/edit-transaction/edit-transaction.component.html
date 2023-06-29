@@ -1,1 +1,75 @@
-<p>edit-transaction works!</p>
+<form
+  class="container d-flex flex-column gap-4"
+  (ngSubmit)="onSubmit()"
+  [formGroup]="editTransactionForm"
+  #formDir="ngForm"
+>
+  <div class="row d-flex justify-content-center">
+    <div class="col-md-6 col-sm-12">
+      <label for="types">Tipo de transação</label>
+      <select id="types" class="form-select" formControlName="type">
+        <option [defaultSelected]="true" disabled>Selecione o tipo</option>
+        <option value="revenue">Entrada</option>
+        <option value="expense">Saída</option>
+      </select>
+    </div>
+
+    <div class="col-md-6 col-sm-12">
+      <label for="categories">Categoria</label>
+      <select id="categories" class="form-select" formControlName="category_id">
+        <option disabled [defaultSelected]="true">Selecione a categoria</option>
+        <ng-container *ngFor="let category of categories">
+          <option
+            *ngIf="category.type === formDir.value.type"
+            [ngValue]="category.id"
+          >
+            {{ category.name }}
+          </option>
+        </ng-container>
+      </select>
+    </div>
+  </div>
+
+  <div class="row d-flex justify-content-center">
+    <div class="col-md-6 col-sm-12">
+      <label for="value">Valor da transação</label>
+      <div class="input-group mb-3">
+        <span class="input-group-text">R$</span>
+        <input
+          id="value"
+          formControlName="value"
+          type="text"
+          class="form-control"
+          mask="separator"
+          thousandSeparator="."
+        />
+      </div>
+    </div>
+
+    <div class="col-md-6 col-sm-12">
+      <label for="date">Data da transação</label>
+      <input
+        type="date"
+        id="date"
+        class="form-control"
+        formControlName="date"
+      />
+    </div>
+
+    <div class="row d-flex justify-content-center">
+      <div class="col-md-12">
+        <label for="date">Descrição</label>
+        <input formControlName="description" class="form-control" type="text" />
+      </div>
+    </div>
+  </div>
+
+  <div>
+    <div class="modal-footer d-flex pt-2 justify-content-center">
+      <button type="button" class="btn btn-danger" data-bs-dismiss="modal">
+        Cancelar
+      </button>
+      <button type="submit" class="btn btn-success">Salvar</button>
+    </div>
+  </div>
+</form>

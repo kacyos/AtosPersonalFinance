@@ -1,6 +1,7 @@
 import { Component } from '@angular/core';
 import { ITransaction } from 'src/app/models/transaction.model';
 import { TransactionService } from 'src/app/services/transaction.service';
+import { Toast, Alert } from 'bootstrap';
 
 @Component({
   selector: 'app-transactions',
@@ -28,8 +29,24 @@ export class TransactionsComponent {
     });
   }
 
-  editTransaction(transaction: ITransaction) {
+  ngInitView() {
+    const alert = document.getElementById('alert') || '';
+    const alertInstance = Alert.getOrCreateInstance(alert);
+    alertInstance.close();
+  }
+
+  handleEdit(transaction: ITransaction) {
     this.transactionEdit = transaction;
+  }
+
+  showToastSuccess() {
+    const toastLiveExample = document.getElementById('toast-success');
+    const toastBootstrap = Toast.getOrCreateInstance(toastLiveExample || '');
+    toastBootstrap.show();
+  }
+
+  editTransaction(transaction: string) {
+    console.log(transaction);
   }
 
   createNewTransaction(transaction: ITransaction) {
@@ -37,5 +54,6 @@ export class TransactionsComponent {
       ...transaction,
       type: transaction.type === 'revenue' ? 'Entrada' : 'Saída',
     });
+    this.showToastSuccess();
   }
 }

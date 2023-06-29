@@ -1,16 +1,16 @@
 import { ComponentFixture, TestBed } from '@angular/core/testing';
 
-import { EditTransactionComponent } from './edit-transaction.component';
+import { ModalEditTransactionComponent } from './edit-transaction.component';
 
 describe('EditTransactionComponent', () => {
-  let component: EditTransactionComponent;
-  let fixture: ComponentFixture<EditTransactionComponent>;
+  let component: ModalEditTransactionComponent;
+  let fixture: ComponentFixture<ModalEditTransactionComponent>;
 
   beforeEach(() => {
     TestBed.configureTestingModule({
-      declarations: [EditTransactionComponent]
+      declarations: [ModalEditTransactionComponent],
     });
-    fixture = TestBed.createComponent(EditTransactionComponent);
+    fixture = TestBed.createComponent(ModalEditTransactionComponent);
     component = fixture.componentInstance;
     fixture.detectChanges();
   });

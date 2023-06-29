@@ -1,7 +1,7 @@
 <form
   class="container d-flex flex-column gap-4"
   (ngSubmit)="onSubmit()"
-  [formGroup]="transactionForm"
+  [formGroup]="createTransactionForm"
   #formDir="ngForm"
 >
   <div class="row d-flex justify-content-center">
@@ -38,7 +38,6 @@
         <ng-container *ngFor="let category of categories">
           <option
             *ngIf="category.type === formDir.value.type"
-            [selected]="transactionEdit?.categoryId === category.id"
             [ngValue]="category.id"
           >
             {{ category.name }}
@@ -59,7 +58,6 @@
         <input
           id="value"
           formControlName="value"
-          [value]="transactionEdit?.value"
           type="text"
           [ngClass]="value.invalid && formDir.submitted ? 'is-invalid' : ''"
           class="form-control"

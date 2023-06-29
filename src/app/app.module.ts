@@ -19,8 +19,10 @@ import {
   provideEnvironmentNgxMask,
 } from 'ngx-mask';
 import { httpInterceptorProviders } from './http-interceptors';
-import { EditTransactionComponent } from './components/modal/edit-transaction/edit-transaction.component';
-import { CreateTransactionComponent } from './components/forms/create-transacrion/create-transaction.component';
+import { ModalEditTransactionComponent } from './components/modal/edit-transaction/edit-transaction.component';
+import { FormCreateTransactionComponent } from './components/forms/create-transacrion/create-transaction.component';
+import { FormEditTransactionComponent } from './components/forms/edit-transaction/edit-transaction.component';
+import { ToastComponent } from './components/toast/toast.component';
 
 @NgModule({
   declarations: [
@@ -31,8 +33,10 @@ import { CreateTransactionComponent } from './components/forms/create-transacrio
     LoginComponent,
     CreateAccountComponent,
     TransactionsComponent,
-    EditTransactionComponent,
-    CreateTransactionComponent,
+    ModalEditTransactionComponent,
+    FormCreateTransactionComponent,
+    FormEditTransactionComponent,
+    ToastComponent,
   ],
   imports: [
     BrowserModule,
@@ -45,6 +49,7 @@ import { CreateTransactionComponent } from './components/forms/create-transacrio
   ],
   providers: [
     // FormsModule,
+
     httpInterceptorProviders,
     // TransactionService,
     // HttpClientModule,

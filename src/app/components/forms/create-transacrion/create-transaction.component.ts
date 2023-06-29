@@ -11,7 +11,7 @@ import { DateConverter } from 'src/app/utils/date';
   templateUrl: './create-transaction.component.html',
   styleUrls: ['./create-transaction.component.css'],
 })
-export class CreateTransactionComponent implements OnInit {
+export class FormCreateTransactionComponent implements OnInit {
   constructor(
     private transactionService: TransactionService,
     private categoryService: CategoryService
@@ -19,17 +19,15 @@ export class CreateTransactionComponent implements OnInit {
 
   @Output()
   registerNewTransaction = new EventEmitter<any>();
-  @Input()
-  transactionEdit?: ITransaction;
 
   categories: ICategory[] = [];
 
-  transactionForm!: FormGroup;
+  createTransactionForm!: FormGroup;
 
   ngOnInit(): void {
     this.getAllCategories();
 
-    this.transactionForm = new FormGroup({
+    this.createTransactionForm = new FormGroup({
       type: new FormControl('', [Validators.required]),
       category_id: new FormControl('', [Validators.required]),
       date: new FormControl('', [Validators.required]),
@@ -52,39 +50,39 @@ export class CreateTransactionComponent implements OnInit {
   }
 
   onSubmit() {
-    if (this.transactionForm.invalid) {
+    if (this.createTransactionForm.invalid) {
       return;
     }
 
     this.transactionService
       .postCreateTransaction({
-        ...this.transactionForm.value,
+        ...this.createTransactionForm.value,
         date: DateConverter.ConvetDateInput(this.date),
       })
 
       .subscribe((transaction) => {
         this.create(transaction);
       });
-    this.transactionForm.reset();
+    this.createTransactionForm.reset();
   }
 
   get type() {
-    return this.transactionForm.get('type')!;
+    return this.createTransactionForm.get('type')!;
   }
 
   get value() {
-    return this.transactionForm.get('value')!;
+    return this.createTransactionForm.get('value')!;
   }
 
   get category_id() {
-    return this.transactionForm.get('category_id')!;
+    return this.createTransactionForm.get('category_id')!;
   }
 
   get date() {
-    return this.transactionForm.get('date')!.value;
+    return this.createTransactionForm.get('date')!.value;
   }
 
   get description() {
-    return this.transactionForm.get('description')!;
+    return this.createTransactionForm.get('description')!;
   }
 }
