@@ -7,9 +7,9 @@ import { AppRoutingModule } from './app-routing.module';
 
 import { AppComponent } from './app.component';
 import { CreateAccountComponent } from './pages/account/create-account/create-account.component';
-import { AuthenticationComponent } from './layout/authentication/authentication.component';
+import { AuthenticationComponent } from './components/layout/authentication/authentication.component';
 import { LoginComponent } from './pages/account/login/login.component';
-import { HomeComponent } from './layout/home/home.component';
+import { HomeComponent } from './components/layout/home/home.component';
 import { DashBoardComponent } from './pages/dash-board/dash-board.component';
 import { TransactionsComponent } from './pages/transactions/transactions.component';
 
@@ -23,6 +23,7 @@ import { ModalEditTransactionComponent } from './components/modal/edit-transacti
 import { FormCreateTransactionComponent } from './components/forms/create-transacrion/create-transaction.component';
 import { FormEditTransactionComponent } from './components/forms/edit-transaction/edit-transaction.component';
 import { ToastComponent } from './components/toast/toast.component';
+import { formatCurrencyBRL } from './pipes/format-currency-BRL.pipe';
 
 @NgModule({
   declarations: [
@@ -37,6 +38,7 @@ import { ToastComponent } from './components/toast/toast.component';
     FormCreateTransactionComponent,
     FormEditTransactionComponent,
     ToastComponent,
+    formatCurrencyBRL,
   ],
   imports: [
     BrowserModule,
@@ -47,14 +49,7 @@ import { ToastComponent } from './components/toast/toast.component';
     FormsModule,
     ReactiveFormsModule,
   ],
-  providers: [
-    // FormsModule,
-
-    httpInterceptorProviders,
-    // TransactionService,
-    // HttpClientModule,
-    provideEnvironmentNgxMask(),
-  ],
+  providers: [httpInterceptorProviders, provideEnvironmentNgxMask()],
   bootstrap: [AppComponent],
 })
 export class AppModule {}
