@@ -1,15 +1,15 @@
 <!-- Modal -->
 <div
   class="modal fade"
-  id="exampleModal"
+  id="modalEditTransaction"
   tabindex="-1"
-  aria-labelledby="exampleModalLabel"
+  aria-labelledby="modalEditTransactionLabel"
   aria-hidden="true"
 >
   <div class="modal-dialog">
     <div class="modal-content">
       <div class="modal-header">
-        <h5 class="modal-title" id="exampleModalLabel">Modal title</h5>
+        <h5 class="modal-title" id="modalEditTransactionLabel">Modal title</h5>
         <button
           type="button"
           class="btn-close"
@@ -22,25 +22,25 @@
         <div class="mx-auto w-75 rounded w-fitcontent p-2 mb-4 bg-info">
           <div class="row text-center">
             <span class="col-12"
-              >Tipo de transação: {{ transactionEdit?.type }}</span
+              >Tipo de transação: {{ transactionForEditing?.type }}</span
             >
             <span class="col-12 text-center"
-              >Categoria: {{ transactionEdit?.category?.name }}</span
+              >Categoria: {{ transactionForEditing?.category?.name }}</span
             >
           </div>
           <div class="row">
             <span class="col-12 text-center"
               >valor da transação:
-              {{ transactionEdit?.value | formatCurrencyBRL }}</span
+              {{ transactionForEditing?.value | formatCurrencyBRL }}</span
             >
             <span class="col-12 text-center"
               >Data da transação:
-              {{ transactionEdit?.date | date : "dd/MM/yyyy" }}</span
+              {{ transactionForEditing?.date | date : "dd/MM/yyyy" }}</span
             >
           </div>
           <div class="row">
             <span class="col-12 description"
-              >Descrição: {{ transactionEdit?.description }}</span
+              >Descrição: {{ transactionForEditing?.description }}</span
             >
           </div>
         </div>

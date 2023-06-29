@@ -2,6 +2,7 @@ import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { ITransaction } from '../models/transaction.model';
 import { CookiesManagerService } from './cookies-manager.service';
+import { catchError, retry } from 'rxjs';
 
 const API = 'http://localhost:5029/transaction';
 
@@ -33,9 +34,16 @@ export class TransactionService {
   }
 
   postCreateTransaction(transaction: ITransaction) {
-    console;
     return this.http.post<ITransaction>(
       `${API}/create?user_id=${this.userId}`,
+      transaction,
+      this.httpOptions
+    );
+  }
+
+  patchUpdateTransaction(transaction: ITransaction) {
+    return this.http.patch<ITransaction>(
+      `${API}/update?transaction_id=${transaction.id}`,
       transaction,
       this.httpOptions
     );

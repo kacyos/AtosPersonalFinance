@@ -5,6 +5,7 @@ import { ITransaction } from 'src/app/models/transaction.model';
 import { CategoryService } from 'src/app/services/category.service';
 import { TransactionService } from 'src/app/services/transaction.service';
 import { DateConverter } from 'src/app/utils/date';
+import { Modal } from 'bootstrap';
 
 @Component({
   selector: 'app-form-edit-transaction',
@@ -18,9 +19,10 @@ export class FormEditTransactionComponent {
   ) {}
 
   @Output()
-  editTransaction = new EventEmitter<any>();
+  update = new EventEmitter<any>();
+
   @Input()
-  transaction_id?: number;
+  transactionForEditing?: ITransaction;
 
   categories: ICategory[] = [];
 
@@ -41,8 +43,27 @@ export class FormEditTransactionComponent {
     });
   }
 
-  handleEdit(transaction: string) {
-    this.editTransaction.emit(transaction);
+  onSubmit() {
+    if (this.editTransactionForm.invalid) {
+      return;
+    }
+    this.handleSubmit();
+    this.resetForm();
+  }
+
+  handleSubmit() {
+    this.update.emit({
+      id: this.transactionForEditing?.id,
+      type: this.type.value || this.transactionForEditing?.type,
+      category_id:
+        this.category_id.value || this.transactionForEditing?.categoryId,
+      value: this.value.value || this.transactionForEditing?.value,
+      date:
+        DateConverter.ConvetDateInput(this.date.value) ||
+        DateConverter.ToLocaleString(this.transactionForEditing?.date),
+      description:
+        this.description.value || this.transactionForEditing?.description,
+    });
   }
 
   getAllCategories() {
@@ -51,23 +72,14 @@ export class FormEditTransactionComponent {
     });
   }
 
-  onSubmit() {
-    this.handleEdit('teste');
-
-    if (this.editTransactionForm.invalid) {
-      return;
-    }
-
-    /*   this.transactionService
-      .postCreateTransaction({
-        ...this.editTransactionForm.value,
-        date: DateConverter.ConvetDateInput(this.date),
-      })
-
-      .subscribe((transaction) => {
-        this.create(transaction);
-      });
-    this.editTransactionForm.reset();*/
+  resetForm() {
+    this.editTransactionForm.setValue({
+      type: '',
+      category_id: '',
+      date: '',
+      value: '',
+      description: '',
+    });
   }
 
   get type() {

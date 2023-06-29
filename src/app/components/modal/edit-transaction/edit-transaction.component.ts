@@ -1,4 +1,4 @@
-import { Component, Input } from '@angular/core';
+import { Component, Input, Output } from '@angular/core';
 import { ITransaction } from 'src/app/models/transaction.model';
 
 @Component({
@@ -8,11 +8,7 @@ import { ITransaction } from 'src/app/models/transaction.model';
 })
 export class ModalEditTransactionComponent {
   @Input()
-  transactionEdit?: ITransaction;
+  transactionForEditing?: ITransaction;
 
   constructor() {}
-
-  ngOnInit(): void {
-    console.log({ tyep: this.transactionEdit });
-  }
 }

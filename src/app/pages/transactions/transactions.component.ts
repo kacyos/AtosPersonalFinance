@@ -1,7 +1,11 @@
 import { Component } from '@angular/core';
 import { ITransaction } from 'src/app/models/transaction.model';
 import { TransactionService } from 'src/app/services/transaction.service';
-import { Toast, Alert } from 'bootstrap';
+import {
+  fomatTypeTransactionForAPI,
+  fomatTypeTransactionForView,
+} from 'src/app/utils/formatTypeTransaction';
+import { Toast } from 'bootstrap';
 
 @Component({
   selector: 'app-transactions',
@@ -10,7 +14,8 @@ import { Toast, Alert } from 'bootstrap';
 })
 export class TransactionsComponent {
   transactions: ITransaction[] = [];
-  transactionEdit?: ITransaction;
+  transactionForEditing?: ITransaction;
+  toastMessage!: string;
 
   constructor(private transactionService: TransactionService) {}
 
@@ -29,24 +34,32 @@ export class TransactionsComponent {
     });
   }
 
-  ngInitView() {
-    const alert = document.getElementById('alert') || '';
-    const alertInstance = Alert.getOrCreateInstance(alert);
-    alertInstance.close();
-  }
-
   handleEdit(transaction: ITransaction) {
-    this.transactionEdit = transaction;
+    this.transactionForEditing = transaction;
   }
 
-  showToastSuccess() {
-    const toastLiveExample = document.getElementById('toast-success');
-    const toastBootstrap = Toast.getOrCreateInstance(toastLiveExample || '');
+  showToastSuccess(message: string) {
+    this.toastMessage = message;
+    const toastSuccess = document.getElementById('toast-success');
+    const toastBootstrap = Toast.getOrCreateInstance(toastSuccess || '');
     toastBootstrap.show();
   }
 
-  editTransaction(transaction: string) {
-    console.log(transaction);
+  updateTransaction(transaction: ITransaction) {
+    this.transactionService
+      .patchUpdateTransaction({
+        ...transaction,
+        type: fomatTypeTransactionForAPI(transaction.type),
+      })
+      .subscribe((transacrionUpdated) => {
+        const type = fomatTypeTransactionForView(transacrionUpdated.type);
+        this.transactions.unshift({
+          ...transacrionUpdated,
+          type,
+        });
+
+        this.showToastSuccess('Transação atualizada com sucesso!');
+      });
   }
 
   createNewTransaction(transaction: ITransaction) {
@@ -54,6 +67,6 @@ export class TransactionsComponent {
       ...transaction,
       type: transaction.type === 'revenue' ? 'Entrada' : 'Saída',
     });
-    this.showToastSuccess();
+    this.showToastSuccess('Transação criada com sucesso!');
   }
 }
