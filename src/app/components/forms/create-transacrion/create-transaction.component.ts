@@ -60,7 +60,17 @@ export class FormCreateTransactionComponent implements OnInit {
       date: DateConverter.ConvetDateInput(this.date),
     });
 
-    this.createTransactionForm.reset();
+    this.resetForm();
+  }
+
+  resetForm() {
+    this.createTransactionForm.setValue({
+      type: '',
+      category_id: '',
+      date: '',
+      value: '',
+      description: '',
+    });
   }
 
   get type() {
