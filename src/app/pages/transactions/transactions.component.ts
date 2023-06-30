@@ -34,7 +34,7 @@ export class TransactionsComponent {
     });
   }
 
-  handleEdit(transaction: ITransaction) {
+  setTransactionEdit(transaction: ITransaction) {
     this.transactionForEditing = transaction;
   }
 
@@ -74,13 +74,13 @@ export class TransactionsComponent {
       });
   }
 
-  deleteTransaction(transaction_id: number) {
+  deleteTransaction() {
     this.transactionService
-      .deleteTransaction(transaction_id)
+      .deleteTransaction(this.transactionForEditing?.id || 0)
       .subscribe((response) => {
         if (response?.status === 204) {
           this.transactions = this.transactions.filter(
-            (transaction) => transaction.id !== transaction_id
+            (transaction) => transaction.id !== this.transactionForEditing?.id
           );
           this.showToastSuccess('Transação excluída com sucesso!');
         } else {

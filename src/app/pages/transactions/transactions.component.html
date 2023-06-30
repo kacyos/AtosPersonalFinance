@@ -47,14 +47,16 @@
                 class="btn btn-sm btn-outline-primary"
                 data-bs-toggle="modal"
                 data-bs-target="#modalEditTransaction"
-                (click)="handleEdit(transaction)"
+                (click)="setTransactionEdit(transaction)"
               >
                 editar
               </button>
               |
               <button
-                (click)="deleteTransaction(transaction.id || 0)"
+                data-bs-toggle="modal"
+                data-bs-target="#confirm-modal"
                 class="btn btn-sm btn-outline-danger"
+                (click)="setTransactionEdit(transaction)"
               >
                 excluir
               </button>
@@ -72,3 +74,10 @@
     (update)="updateTransaction($event)"
   ></app-form-edit-transaction>
 </app-modal-edit-transaction>
+
+<app-modal-app-confirm
+  (confirm)="deleteTransaction()"
+  [modalTitle]="'Atenção'"
+  [modalMessage]="'Deseja prosseguir com a exclução da transação?'"
+>
+</app-modal-app-confirm>

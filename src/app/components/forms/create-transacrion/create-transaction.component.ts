@@ -64,12 +64,9 @@ export class FormCreateTransactionComponent implements OnInit {
   }
 
   resetForm() {
-    this.createTransactionForm.setValue({
-      type: '',
-      category_id: '',
-      date: '',
-      value: '',
-      description: '',
+    Object.keys(this.createTransactionForm.controls).forEach((key) => {
+      this.createTransactionForm.get(key)!.setValue('');
+      this.createTransactionForm.get(key)!.setErrors(null);
     });
   }
 
