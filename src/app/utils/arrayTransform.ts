@@ -36,4 +36,35 @@ export class ArrayTransForm {
 
     return transformedArray;
   }
+
+  public static groupByCategory(array: ITransaction[]) {
+    const groupedRevenues: { [key: string]: [ITransaction] } = {};
+    const groupedExpenses: { [key: string]: [ITransaction] } = {};
+
+    for (const obj of array) {
+      const formattedDate = new Date(obj.date).toLocaleDateString('pt-BR', {
+        day: '2-digit',
+        month: '2-digit',
+        year: 'numeric',
+      });
+
+      const key = obj.category?.name;
+
+      if (obj.type === 'revenue') {
+        if (!groupedRevenues[key!]) {
+          groupedRevenues[key!] = [{ ...obj, date: formattedDate }];
+        } else {
+          groupedRevenues[key!].push({ ...obj, date: formattedDate });
+        }
+      } else {
+        if (!groupedExpenses[key!]) {
+          groupedExpenses[key!] = [{ ...obj, date: formattedDate }];
+        } else {
+          groupedExpenses[key!].push({ ...obj, date: formattedDate });
+        }
+      }
+    }
+
+    return { groupedExpenses, groupedRevenues };
+  }
 }

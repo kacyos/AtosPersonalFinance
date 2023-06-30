@@ -57,4 +57,24 @@ export class TransactionService {
       })
       .pipe(map((response: HttpResponse<any>) => response));
   }
+
+  getFilterTransaction(params: {
+    transaction_type: string;
+    category_id: string;
+    initial_date: string;
+    final_date: string;
+  }) {
+    const paramsSearch = new URLSearchParams();
+    const { transaction_type, category_id, initial_date, final_date } = params;
+
+    transaction_type &&
+      paramsSearch.append('transaction_type', transaction_type);
+    category_id && paramsSearch.append('category_id', category_id);
+    initial_date && paramsSearch.append('initial_date', initial_date);
+    final_date && paramsSearch.append('final_date', final_date);
+
+    return this.http.get<ITransaction[]>(
+      `${API}/list-by?user_id=${this.userId}&${paramsSearch.toString()}`
+    );
+  }
 }

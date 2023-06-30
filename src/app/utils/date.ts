@@ -1,7 +1,7 @@
 export class DateConverter {
   public static ToLocaleString(date: string | undefined) {
     if (!date) {
-      return null;
+      return '';
     }
     return new Date(date).toLocaleDateString('pt-BR', {
       day: '2-digit',
@@ -17,7 +17,7 @@ export class DateConverter {
    */
   public static ConvetDateInput(date: string) {
     if (!date) {
-      return null;
+      return '';
     }
     const [year, month, day] = date.split('-');
 
