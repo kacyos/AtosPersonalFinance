@@ -1,0 +1,52 @@
+<form class="container d-flex flex-column gap-4" #formDir="ngForm">
+  <div class="row d-flex justify-content-center">
+    <div class="col-md-6 col-sm-12">
+      <label for="types">Tipo de transação</label>
+      <select id="types" class="form-select" formControlName="type">
+        <option value="allTypes" [defaultSelected]="true">Entrada/Saída</option>
+        <option value="revenue">Entrada</option>
+        <option value="expense">Saída</option>
+      </select>
+    </div>
+
+    <div class="col-md-6 col-sm-12">
+      <label for="categories">Categoria</label>
+      <select id="categories" class="form-select" formControlName="category_id">
+        <option [defaultSelected]="true">Todas</option>
+      </select>
+    </div>
+  </div>
+
+  <div class="row d-flex justify-content-center">
+    <div class="col-md-6 col-sm-12">
+      <label for="date">Data Inicial</label>
+      <input
+        type="date"
+        id="date"
+        class="form-control"
+        formControlName="date"
+      />
+    </div>
+
+    <div class="col-md-6 col-sm-12">
+      <label for="date">Data Final</label>
+      <input
+        type="date"
+        id="date"
+        class="form-control"
+        formControlName="date"
+      />
+    </div>
+  </div>
+
+  <div>
+    <div class="modal-footer d-flex pt-2 justify-content-center">
+      <button type="button" class="btn btn-danger" data-bs-dismiss="modal">
+        Cancelar
+      </button>
+      <button type="submit" class="btn btn-success" data-bs-dismiss="modal">
+        Salvar
+      </button>
+    </div>
+  </div>
+</form>

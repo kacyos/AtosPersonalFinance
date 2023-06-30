@@ -25,6 +25,7 @@ import { FormEditTransactionComponent } from './components/forms/edit-transactio
 import { ToastComponent } from './components/toast/toast.component';
 import { formatCurrencyBRL } from './pipes/format-currency-BRL.pipe';
 import { ConfirmComponent } from './components/modal/confirm/confirm.component';
+import { ReportsComponent } from './pages/reports/report.component';
 
 @NgModule({
   declarations: [
@@ -41,6 +42,7 @@ import { ConfirmComponent } from './components/modal/confirm/confirm.component';
     ToastComponent,
     formatCurrencyBRL,
     ConfirmComponent,
+    ReportsComponent,
   ],
   imports: [
     BrowserModule,

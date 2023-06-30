@@ -7,6 +7,7 @@ import { AuthenticationComponent } from './components/layout/authentication/auth
 import { authGuard } from '../guard/auth.guard';
 import { DashBoardComponent } from './pages/dash-board/dash-board.component';
 import { TransactionsComponent } from './pages/transactions/transactions.component';
+import { ReportsComponent } from './pages/reports/report.component';
 
 const routes: Routes = [
   {
@@ -20,6 +21,10 @@ const routes: Routes = [
       {
         path: 'transactions',
         component: TransactionsComponent,
+      },
+      {
+        path: 'relatorio',
+        component: ReportsComponent,
       },
     ],
     canActivate: [authGuard],
