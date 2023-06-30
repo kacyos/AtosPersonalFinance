@@ -39,7 +39,7 @@ export class FormCreateTransactionComponent implements OnInit {
     });
   }
 
-  create(transaction: ITransaction) {
+  handleRegister(transaction: ITransaction) {
     this.registerNewTransaction.emit(transaction);
   }
 
@@ -54,15 +54,12 @@ export class FormCreateTransactionComponent implements OnInit {
       return;
     }
 
-    this.transactionService
-      .postCreateTransaction({
-        ...this.createTransactionForm.value,
-        date: DateConverter.ConvetDateInput(this.date),
-      })
+    this.transactionService;
+    this.handleRegister({
+      ...this.createTransactionForm.value,
+      date: DateConverter.ConvetDateInput(this.date),
+    });
 
-      .subscribe((transaction) => {
-        this.create(transaction);
-      });
     this.createTransactionForm.reset();
   }
 
