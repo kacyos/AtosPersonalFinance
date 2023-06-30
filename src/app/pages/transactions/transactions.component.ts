@@ -69,4 +69,19 @@ export class TransactionsComponent {
     });
     this.showToastSuccess('Transação criada com sucesso!');
   }
+
+  deleteTransaction(transaction_id: number) {
+    this.transactionService
+      .deleteTransaction(transaction_id)
+      .subscribe((response) => {
+        if (response?.status === 204) {
+          this.transactions = this.transactions.filter(
+            (transaction) => transaction.id !== transaction_id
+          );
+          this.showToastSuccess('Transação excluída com sucesso!');
+        } else {
+          console.log('Erro ao excluir transação');
+        }
+      });
+  }
 }

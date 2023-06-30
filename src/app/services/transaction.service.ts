@@ -1,8 +1,8 @@
-import { HttpClient, HttpHeaders } from '@angular/common/http';
+import { HttpClient, HttpHeaders, HttpResponse } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { ITransaction } from '../models/transaction.model';
 import { CookiesManagerService } from './cookies-manager.service';
-import { catchError, retry } from 'rxjs';
+import { Observable, catchError, map, observeOn, retry } from 'rxjs';
 
 const API = 'http://localhost:5029/transaction';
 
@@ -47,5 +47,14 @@ export class TransactionService {
       transaction,
       this.httpOptions
     );
+  }
+
+  deleteTransaction(transactionId: number) {
+    return this.http
+      .delete(`${API}/delete?transaction_id=${transactionId}`, {
+        ...this.httpOptions,
+        observe: 'response',
+      })
+      .pipe(map((response: HttpResponse<any>) => response));
   }
 }

@@ -52,7 +52,12 @@
                 editar
               </button>
               |
-              <button class="btn btn-sm btn-outline-danger">excluir</button>
+              <button
+                (click)="deleteTransaction(transaction.id || 0)"
+                class="btn btn-sm btn-outline-danger"
+              >
+                excluir
+              </button>
             </tr>
           </td>
         </tr>
