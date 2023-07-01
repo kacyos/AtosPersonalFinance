@@ -3,9 +3,9 @@ import { Component, Input } from '@angular/core';
 @Component({
   selector: 'app-toast',
   templateUrl: './toast.component.html',
-  styleUrls: ['./toast.component.css'],
+  styleUrls: [],
 })
 export class ToastComponent {
   @Input() message: string = '';
-  @Input() type: string = 'error';
+  @Input() type: string = 'success';
 }

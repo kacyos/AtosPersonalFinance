@@ -1,5 +1,4 @@
 import { Injectable } from '@angular/core';
-import { AccountService } from '../services/account.service';
 
 import {
   HttpErrorResponse,
@@ -10,7 +9,6 @@ import {
 import { throwError } from 'rxjs';
 import { catchError } from 'rxjs/operators';
 import { CookiesManagerService } from '../services/cookies-manager.service';
-import { Toast } from 'bootstrap';
 
 @Injectable()
 export class AuthInterceptor implements HttpInterceptor {
@@ -38,9 +36,7 @@ export class AuthInterceptor implements HttpInterceptor {
         `Backend retornou o código ${error.status}, body : ${error.error.message}`
       );
     }
-    const toastSuccess = document.getElementById('toast-success');
-    const toastBootstrap = Toast.getOrCreateInstance(toastSuccess || '');
-    toastBootstrap.show();
+
     return throwError(() => {
       'Ocorreu um erro na aplicação, tente novamente mais tarde. ' +
         error.error.message;

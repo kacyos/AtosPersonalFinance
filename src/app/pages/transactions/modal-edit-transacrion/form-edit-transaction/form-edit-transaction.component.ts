@@ -5,12 +5,11 @@ import { ITransaction } from 'src/app/models/transaction.model';
 import { CategoryService } from 'src/app/services/category.service';
 import { TransactionService } from 'src/app/services/transaction.service';
 import { DateConverter } from 'src/app/utils/date';
-import { Modal } from 'bootstrap';
 
 @Component({
   selector: 'app-form-edit-transaction',
-  templateUrl: './edit-transaction.component.html',
-  styleUrls: ['./edit-transaction.component.css'],
+  templateUrl: './form-edit-transaction.component.html',
+  styleUrls: [],
 })
 export class FormEditTransactionComponent {
   constructor(
@@ -43,6 +42,12 @@ export class FormEditTransactionComponent {
     });
   }
 
+  getAllCategories() {
+    this.categoryService.getAllCategories().subscribe((categories) => {
+      this.categories = categories;
+    });
+  }
+
   onSubmit() {
     if (this.editTransactionForm.invalid) {
       return;
@@ -63,12 +68,6 @@ export class FormEditTransactionComponent {
         DateConverter.ToLocaleString(this.transactionForEditing?.date),
       description:
         this.description.value || this.transactionForEditing?.description,
-    });
-  }
-
-  getAllCategories() {
-    this.categoryService.getAllCategories().subscribe((categories) => {
-      this.categories = categories;
     });
   }
 

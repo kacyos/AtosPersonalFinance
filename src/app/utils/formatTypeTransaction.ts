@@ -1,4 +1,5 @@
 export const fomatTypeTransactionForAPI = (type: string) => {
+  if (type === '') return '';
   let typeTransformed = type;
   if (type === 'Entrada') typeTransformed = 'revenue';
   if (type === 'Saída') typeTransformed = 'expense';

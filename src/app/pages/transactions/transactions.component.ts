@@ -15,25 +15,22 @@ import { Toast } from 'bootstrap';
 export class TransactionsComponent {
   transactions: ITransaction[] = [];
   transactionForEditing?: ITransaction;
-  toast!: {
-    type: string;
-    message: string;
+  toast = {
+    type: '',
+    message: '',
   };
 
   constructor(private transactionService: TransactionService) {}
 
   ngOnInit() {
     this.getAllTransactions();
-    this.openToast('success', 'Transação criada com sucesso!');
   }
 
   openToast(type: string, message: string) {
-    const toast = document.querySelectorAll('.toast');
+    this.toast.type = type;
+    this.toast.message = message;
 
-    this.toast = {
-      type,
-      message,
-    };
+    const toast = document.querySelectorAll('.toast');
 
     toast.forEach((element) => {
       const toastBootstrap = Toast.getOrCreateInstance(element, {
@@ -60,6 +57,14 @@ export class TransactionsComponent {
     this.transactionForEditing = transaction;
   }
 
+  createNewTransaction(transaction: ITransaction) {
+    this.transactions.unshift({
+      ...transaction,
+      type: transaction.type === 'revenue' ? 'Entrada' : 'Saída',
+    });
+    this.openToast('success', 'Transação criada com sucesso!');
+  }
+
   updateTransaction(transaction: ITransaction) {
     this.transactionService
       .patchUpdateTransaction({
@@ -72,27 +77,18 @@ export class TransactionsComponent {
           ...transacrionUpdated,
           type,
         });
+        this.openToast('success', 'Transação atualizada com sucesso!');
       });
-  }
-
-  createNewTransaction(transaction: ITransaction) {
-    this.transactions.unshift({
-      ...transaction,
-      type: transaction.type === 'revenue' ? 'Entrada' : 'Saída',
-    });
   }
 
   deleteTransaction() {
     this.transactionService
       .deleteTransaction(this.transactionForEditing?.id || 0)
-      .subscribe((response) => {
-        if (response?.status === 204) {
-          this.transactions = this.transactions.filter(
-            (transaction) => transaction.id !== this.transactionForEditing?.id
-          );
-        } else {
-          console.log('Erro ao excluir transação');
-        }
+      .subscribe(() => {
+        this.transactions = this.transactions.filter(
+          (transaction) => transaction.id !== this.transactionForEditing?.id
+        );
+        this.openToast('success', 'Transação deletada com sucesso!');
       });
   }
 }
