@@ -20,7 +20,7 @@ import {
 } from 'ngx-mask';
 import { httpInterceptorProviders } from './http-interceptors';
 import { ModalEditTransactionComponent } from './components/modal/edit-transaction/edit-transaction.component';
-import { FormCreateTransactionComponent } from './components/forms/create-transacrion/create-transaction.component';
+import { FormCreateTransactionComponent } from './pages/transactions/form-create-transacrion/form-create-transaction.component';
 import { FormEditTransactionComponent } from './components/forms/edit-transaction/edit-transaction.component';
 import { ToastComponent } from './components/toast/toast.component';
 import { formatCurrencyBRL } from './pipes/format-currency-BRL.pipe';

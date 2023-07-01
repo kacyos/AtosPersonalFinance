@@ -75,15 +75,11 @@ export class TransactionsComponent {
   }
 
   createNewTransaction(transaction: ITransaction) {
-    this.transactionService
-      .postCreateTransaction(transaction)
-      .subscribe((transaction) => {
-        this.transactions.unshift({
-          ...transaction,
-          type: transaction.type === 'revenue' ? 'Entrada' : 'Saída',
-        });
-        this.showToastSuccess('Transação criada com sucesso!');
-      });
+    this.transactions.unshift({
+      ...transaction,
+      type: transaction.type === 'revenue' ? 'Entrada' : 'Saída',
+    });
+    this.showToastSuccess('Transação criada com sucesso!');
   }
 
   deleteTransaction() {
