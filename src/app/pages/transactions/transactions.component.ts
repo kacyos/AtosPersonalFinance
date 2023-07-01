@@ -15,21 +15,31 @@ import { Toast } from 'bootstrap';
 export class TransactionsComponent {
   transactions: ITransaction[] = [];
   transactionForEditing?: ITransaction;
-  toastMessage!: string;
+  toast!: {
+    type: string;
+    message: string;
+  };
 
   constructor(private transactionService: TransactionService) {}
 
   ngOnInit() {
     this.getAllTransactions();
+    this.openToast('success', 'Transação criada com sucesso!');
   }
 
-  openToast() {
-    const toast = document.querySelectorAll('.toast-error');
-    toast.forEach((t) => {
-      console.log(t);
-      const toastBootstrap = Toast.getOrCreateInstance(t, {
+  openToast(type: string, message: string) {
+    const toast = document.querySelectorAll('.toast');
+
+    this.toast = {
+      type,
+      message,
+    };
+
+    toast.forEach((element) => {
+      const toastBootstrap = Toast.getOrCreateInstance(element, {
         animation: true,
-        autohide: false,
+        autohide: true,
+        delay: 3000,
       });
       toastBootstrap.show();
     });
@@ -50,13 +60,6 @@ export class TransactionsComponent {
     this.transactionForEditing = transaction;
   }
 
-  showToastSuccess(message: string) {
-    this.toastMessage = message;
-    const toastSuccess = document.getElementById('toast-success');
-    const toastBootstrap = Toast.getOrCreateInstance(toastSuccess || '');
-    toastBootstrap.show();
-  }
-
   updateTransaction(transaction: ITransaction) {
     this.transactionService
       .patchUpdateTransaction({
@@ -69,8 +72,6 @@ export class TransactionsComponent {
           ...transacrionUpdated,
           type,
         });
-
-        this.showToastSuccess('Transação atualizada com sucesso!');
       });
   }
 
@@ -79,7 +80,6 @@ export class TransactionsComponent {
       ...transaction,
       type: transaction.type === 'revenue' ? 'Entrada' : 'Saída',
     });
-    this.showToastSuccess('Transação criada com sucesso!');
   }
 
   deleteTransaction() {
@@ -90,7 +90,6 @@ export class TransactionsComponent {
           this.transactions = this.transactions.filter(
             (transaction) => transaction.id !== this.transactionForEditing?.id
           );
-          this.showToastSuccess('Transação excluída com sucesso!');
         } else {
           console.log('Erro ao excluir transação');
         }

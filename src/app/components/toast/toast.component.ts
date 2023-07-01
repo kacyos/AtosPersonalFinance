@@ -7,4 +7,5 @@ import { Component, Input } from '@angular/core';
 })
 export class ToastComponent {
   @Input() message: string = '';
+  @Input() type: string = 'error';
 }
