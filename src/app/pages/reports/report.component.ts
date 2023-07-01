@@ -58,10 +58,6 @@ export class ReportsComponent implements OnInit {
       });
   }
 
-  getKeys(obj: any) {
-    return Object.keys(obj);
-  }
-
   getAllCategories() {
     this.categoryService.getAllCategories().subscribe((categories) => {
       this.categories = categories;

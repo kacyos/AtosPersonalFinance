@@ -23,6 +23,18 @@ export class TransactionsComponent {
     this.getAllTransactions();
   }
 
+  openToast() {
+    const toast = document.querySelectorAll('.toast-error');
+    toast.forEach((t) => {
+      console.log(t);
+      const toastBootstrap = Toast.getOrCreateInstance(t, {
+        animation: true,
+        autohide: false,
+      });
+      toastBootstrap.show();
+    });
+  }
+
   getAllTransactions() {
     this.transactionService.getAllTransactions().subscribe((transactions) => {
       transactions.forEach((transaction) => {

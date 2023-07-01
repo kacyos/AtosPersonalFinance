@@ -1,9 +1,11 @@
 <app-toast [message]="toastMessage"></app-toast>
+
 <div class="d-flex gap-4 mx-auto mt-4 flex-column justify-content-center w-75">
   <app-form-create-transaction
     (registerNewTransaction)="createNewTransaction($event)"
   ></app-form-create-transaction>
 
+  <!------------ Tabela --------------->
   <div class="table-responsive">
     <table class="table table-hover table-secondary">
       <thead>
@@ -13,7 +15,7 @@
           <th>Tipo</th>
           <th>Descrição</th>
           <th>Valor R$</th>
-          <th>opções</th>
+          <th>Opções</th>
         </tr>
       </thead>
       <tbody>
@@ -38,7 +40,7 @@
             </div>
           </td>
           <td class="align-top">
-            {{ transaction.value | currency : "BRL" : "symbol" : "1.2-2" }}
+            {{ transaction.value | formatCurrencyBRL }}
           </td>
           <td class="align-top d-flex gap-2">
             <tr class="d-flex gap-2">
@@ -78,6 +80,6 @@
 <app-modal-app-confirm
   (confirm)="deleteTransaction()"
   [modalTitle]="'Atenção'"
-  [modalMessage]="'Deseja prosseguir com a exclução da transação?'"
+  [modalMessage]="'Deseja prosseguir com a exclução?'"
 >
 </app-modal-app-confirm>
