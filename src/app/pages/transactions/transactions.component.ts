@@ -15,12 +15,31 @@ import { Toast } from 'bootstrap';
 export class TransactionsComponent {
   transactions: ITransaction[] = [];
   transactionForEditing?: ITransaction;
-  toastMessage!: string;
+  toast = {
+    type: '',
+    message: '',
+  };
 
   constructor(private transactionService: TransactionService) {}
 
   ngOnInit() {
     this.getAllTransactions();
+  }
+
+  openToast(type: string, message: string) {
+    this.toast.type = type;
+    this.toast.message = message;
+
+    const toast = document.querySelectorAll('.toast');
+
+    toast.forEach((element) => {
+      const toastBootstrap = Toast.getOrCreateInstance(element, {
+        animation: true,
+        autohide: true,
+        delay: 3000,
+      });
+      toastBootstrap.show();
+    });
   }
 
   getAllTransactions() {
@@ -38,11 +57,12 @@ export class TransactionsComponent {
     this.transactionForEditing = transaction;
   }
 
-  showToastSuccess(message: string) {
-    this.toastMessage = message;
-    const toastSuccess = document.getElementById('toast-success');
-    const toastBootstrap = Toast.getOrCreateInstance(toastSuccess || '');
-    toastBootstrap.show();
+  createNewTransaction(transaction: ITransaction) {
+    this.transactions.unshift({
+      ...transaction,
+      type: transaction.type === 'revenue' ? 'Entrada' : 'Saída',
+    });
+    this.openToast('success', 'Transação criada com sucesso!');
   }
 
   updateTransaction(transaction: ITransaction) {
@@ -57,35 +77,18 @@ export class TransactionsComponent {
           ...transacrionUpdated,
           type,
         });
-
-        this.showToastSuccess('Transação atualizada com sucesso!');
-      });
-  }
-
-  createNewTransaction(transaction: ITransaction) {
-    this.transactionService
-      .postCreateTransaction(transaction)
-      .subscribe((transaction) => {
-        this.transactions.unshift({
-          ...transaction,
-          type: transaction.type === 'revenue' ? 'Entrada' : 'Saída',
-        });
-        this.showToastSuccess('Transação criada com sucesso!');
+        this.openToast('success', 'Transação atualizada com sucesso!');
       });
   }
 
   deleteTransaction() {
     this.transactionService
       .deleteTransaction(this.transactionForEditing?.id || 0)
-      .subscribe((response) => {
-        if (response?.status === 204) {
-          this.transactions = this.transactions.filter(
-            (transaction) => transaction.id !== this.transactionForEditing?.id
-          );
-          this.showToastSuccess('Transação excluída com sucesso!');
-        } else {
-          console.log('Erro ao excluir transação');
-        }
+      .subscribe(() => {
+        this.transactions = this.transactions.filter(
+          (transaction) => transaction.id !== this.transactionForEditing?.id
+        );
+        this.openToast('success', 'Transação deletada com sucesso!');
       });
   }
 }

@@ -1,6 +1,6 @@
 .description{
     display: inline-block;
-    max-width:  15ch;
+    max-width:  60ch;
     overflow: hidden;
     white-space: nowrap;
     text-overflow: ellipsis ;

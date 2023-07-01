@@ -1,27 +1,82 @@
-# AtosPersonalFinance
+<div align="center" id="top"> 
+  <img src="./demo.gif" alt="Atos Personal Finance" />
 
-This project was generated with [Angular CLI](https://github.com/angular/angular-cli) version 16.1.0.
+&#xa0;
 
-## Development server
+  <!-- <a href="https://atospersonalfinance.netlify.com">Demo</a> -->
+</div>
 
-Run `ng serve` for a dev server. Navigate to `http://localhost:4200/`. The application will automatically reload if you change any of the source files.
+<h1 align="center">Atos Personal Finance</h1>
 
-## Code scaffolding
+<p align="center">
+  <img alt="Principal linguagem do projeto" src="https://img.shields.io/github/languages/top/kacyos/AtosPersonalFinance?color=56BEB8">
 
-Run `ng generate component component-name` to generate a new component. You can also use `ng generate directive|pipe|service|class|guard|interface|enum|module`.
+  <img alt="Quantidade de linguagens utilizadas" src="https://img.shields.io/github/languages/count/kacyos/AtosPersonalFinance?color=56BEB8">
 
-## Build
+  <img alt="Tamanho do repositório" src="https://img.shields.io/github/repo-size/kacyos/AtosPersonalFinance?color=56BEB8">
 
-Run `ng build` to build the project. The build artifacts will be stored in the `dist/` directory.
+  <img alt="Licença" src="https://img.shields.io/github/license/kacyos/AtosPersonalFinance?color=56BEB8">
+</p>
 
-## Running unit tests
+<p align="center">
+  <a href="#dart-sobre">Sobre</a> &#xa0; | &#xa0; 
+  <a href="#sparkles-funcionalidades">Funcionalidades</a> &#xa0; | &#xa0;
+  <a href="#rocket-tecnologias">Tecnologias</a> &#xa0; | &#xa0;
+  <a href="#white_check_mark-pré-requisitos">Pré requisitos</a> &#xa0; | &#xa0;
+  <a href="#checkered_flag-começando">Começando</a> &#xa0; | &#xa0;
+  <a href="#memo-licença">Licença</a> &#xa0; | &#xa0;
+  <a href="https://github.com/kacyos" target="_blank">Autor</a>
+</p>
+<br>
 
-Run `ng test` to execute the unit tests via [Karma](https://karma-runner.github.io).
+## :dart: Sobre
 
-## Running end-to-end tests
+Personal finance é uma aplicação desenvolvida em Angular para auxiliar no gerenciamento das finanças pessoais de forma prática e eficiente. Com esta ferramenta, você poderá acompanhar suas receitas e despesas e visualizar o balanço, e manter suas finanças sob controle.
 
-Run `ng e2e` to execute the end-to-end tests via a platform of your choice. To use this command, you need to first add a package that implements end-to-end testing capabilities.
+## :sparkles: Funcionalidades
 
-## Further help
+:heavy_check_mark: **Cadastro de Transações**: Registre suas receitas e despesas de forma simples e rápida.
+:heavy_check_mark: **Categorização**: Dê uma categoria para suas transações.
+:heavy_check_mark: **Acompanhamento de Saldo**: Visualize o total de entradas, saídas e o balanço.
+:heavy_check_mark: **Cadastrou errado?**: Edite ou exclua transações.
+:heavy_check_mark: **Geração de relatório**: Gere relatório de receitas e despesas
 
-To get more help on the Angular CLI use `ng help` or go check out the [Angular CLI Overview and Command Reference](https://angular.io/cli) page.
+## :rocket: Tecnologias
+
+As seguintes ferramentas foram usadas na construção do projeto:
+
+- [Angular](https://expo.io/)
+- [Bootstrap](https://nodejs.org/en/)
+- [TypeScript](https://www.typescriptlang.org/)
+
+## :white_check_mark: Pré requisitos
+
+Antes de começar :checkered_flag:, você precisa ter o [Git](https://git-scm.com), [Node](https://nodejs.org/en/) e o [AngularCLI](https://angular.io/cli) instalados em sua maquina.
+
+## :checkered_flag: Começando
+
+```bash
+# Clone este repositório
+$ git clone https://github.com/kacyos/AtosPersonalFinance
+
+# Entre na pasta
+$ cd AtosPersonalFinance
+
+# Instale as dependências
+$ npm install
+
+# Para iniciar o projeto
+$ ng serve
+
+# O app vai inicializar em <http://localhost:3000>
+```
+
+## :memo: Licença
+
+Este projeto está sob licença MIT. Veja o arquivo [LICENSE](LICENSE.md) para mais detalhes.
+
+Feito com :heart: por <a href="https://github.com/kacyos" target="_blank">Cacio de Castro</a>
+
+&#xa0;
+
+<a href="#top">Voltar para o topo</a>

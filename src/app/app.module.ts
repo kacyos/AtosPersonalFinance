@@ -19,13 +19,13 @@ import {
   provideEnvironmentNgxMask,
 } from 'ngx-mask';
 import { httpInterceptorProviders } from './http-interceptors';
-import { ModalEditTransactionComponent } from './components/modal/edit-transaction/edit-transaction.component';
-import { FormCreateTransactionComponent } from './components/forms/create-transacrion/create-transaction.component';
-import { FormEditTransactionComponent } from './components/forms/edit-transaction/edit-transaction.component';
+import { FormCreateTransactionComponent } from './pages/transactions/form-create-transacrion/form-create-transaction.component';
+import { FormEditTransactionComponent } from './pages/transactions/modal-edit-transacrion/form-edit-transaction/form-edit-transaction.component';
 import { ToastComponent } from './components/toast/toast.component';
 import { formatCurrencyBRL } from './pipes/format-currency-BRL.pipe';
 import { ConfirmComponent } from './components/modal/confirm/confirm.component';
 import { ReportsComponent } from './pages/reports/report.component';
+import { ModalEditTransactionComponent } from './pages/transactions/modal-edit-transacrion/modal-edit-transaction.component';
 
 @NgModule({
   declarations: [

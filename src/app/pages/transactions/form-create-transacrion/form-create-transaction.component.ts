@@ -8,8 +8,8 @@ import { DateConverter } from 'src/app/utils/date';
 
 @Component({
   selector: 'app-form-create-transaction',
-  templateUrl: './create-transaction.component.html',
-  styleUrls: ['./create-transaction.component.css'],
+  templateUrl: './form-create-transaction.component.html',
+  styleUrls: [],
 })
 export class FormCreateTransactionComponent implements OnInit {
   constructor(
@@ -22,12 +22,12 @@ export class FormCreateTransactionComponent implements OnInit {
 
   categories: ICategory[] = [];
 
-  createTransactionForm!: FormGroup;
+  form!: FormGroup;
 
   ngOnInit(): void {
     this.getAllCategories();
 
-    this.createTransactionForm = new FormGroup({
+    this.form = new FormGroup({
       type: new FormControl('', [Validators.required]),
       category_id: new FormControl('', [Validators.required]),
       date: new FormControl('', [Validators.required]),
@@ -39,8 +39,17 @@ export class FormCreateTransactionComponent implements OnInit {
     });
   }
 
-  handleRegister(transaction: ITransaction) {
-    this.registerNewTransaction.emit(transaction);
+  onSubmit() {
+    if (this.form.invalid) {
+      return;
+    }
+
+    this.createNewTransaction({
+      ...this.form.value,
+      date: DateConverter.ConvetDateInput(this.date),
+    });
+
+    this.form.reset();
   }
 
   getAllCategories() {
@@ -49,44 +58,31 @@ export class FormCreateTransactionComponent implements OnInit {
     });
   }
 
-  onSubmit() {
-    if (this.createTransactionForm.invalid) {
-      return;
-    }
-
-    this.transactionService;
-    this.handleRegister({
-      ...this.createTransactionForm.value,
-      date: DateConverter.ConvetDateInput(this.date),
-    });
-
-    this.resetForm();
-  }
-
-  resetForm() {
-    Object.keys(this.createTransactionForm.controls).forEach((key) => {
-      this.createTransactionForm.get(key)!.setValue('');
-      this.createTransactionForm.get(key)!.setErrors(null);
-    });
+  createNewTransaction(transaction: ITransaction) {
+    this.transactionService
+      .postCreateTransaction(transaction)
+      .subscribe((transaction) => {
+        this.registerNewTransaction.emit(transaction);
+      });
   }
 
   get type() {
-    return this.createTransactionForm.get('type')!;
+    return this.form.get('type')!;
   }
 
   get value() {
-    return this.createTransactionForm.get('value')!;
+    return this.form.get('value')!;
   }
 
   get category_id() {
-    return this.createTransactionForm.get('category_id')!;
+    return this.form.get('category_id')!;
   }
 
   get date() {
-    return this.createTransactionForm.get('date')!.value;
+    return this.form.get('date')!.value;
   }
 
   get description() {
-    return this.createTransactionForm.get('description')!;
+    return this.form.get('description')!;
   }
 }
