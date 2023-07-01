@@ -45,8 +45,8 @@ Personal finance é uma aplicação desenvolvida em Angular para auxiliar no ger
 
 As seguintes ferramentas foram usadas na construção do projeto:
 
-- [Angular](https://expo.io/)
-- [Bootstrap](https://nodejs.org/en/)
+- [Angular](https://angular.io/)
+- [Bootstrap](https://getbootstrap.com/)
 - [TypeScript](https://www.typescriptlang.org/)
 
 ## :white_check_mark: Pré requisitos
@@ -68,7 +68,7 @@ $ npm install
 # Para iniciar o projeto
 $ ng serve
 
-# O app vai inicializar em <http://localhost:3000>
+# O app vai inicializar em < http://localhost:4200/>
 ```
 
 ## :memo: Licença
