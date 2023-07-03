@@ -59,10 +59,10 @@ export class TransactionService {
   }
 
   getFilterTransaction(params: {
-    transaction_type: string;
-    category_id: string;
-    initial_date: string;
-    final_date: string;
+    transaction_type?: string;
+    category_id?: string;
+    initial_date?: string;
+    final_date?: string;
   }) {
     const paramsSearch = new URLSearchParams();
     const { transaction_type, category_id, initial_date, final_date } = params;

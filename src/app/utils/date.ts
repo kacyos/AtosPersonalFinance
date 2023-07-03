@@ -23,4 +23,10 @@ export class DateConverter {
 
     return `${day}/${month}/${year}`;
   }
+
+  public static getSpecificDate(number: number) {
+    const date = new Date();
+    date.setDate(date.getDate() + number);
+    return date.toLocaleDateString('pt-BR', {});
+  }
 }
