@@ -123,7 +123,16 @@
             </td>
             <td>{{ transaction.value | formatCurrencyBRL }}</td>
             <td>{{ transaction.type }}</td>
-            <td>{{ transaction.category?.name }}</td>
+            <td>
+              <span class="d-flex gap-2">
+                <i
+                  class="material-icons fs-4 my-auto rounded"
+                  [style]="{ background: transaction.category?.color }"
+                  >{{ transaction.category?.icon }}</i
+                >
+                {{ transaction.category?.name }}
+              </span>
+            </td>
           </tr>
         </tbody>
       </table>

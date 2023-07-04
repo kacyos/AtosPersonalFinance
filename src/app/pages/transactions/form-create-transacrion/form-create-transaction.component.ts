@@ -57,6 +57,7 @@ export class FormCreateTransactionComponent implements OnInit {
   getAllCategories() {
     this.categoryService.getAllCategories().subscribe((categories) => {
       this.categories = categories;
+      console.log(categories);
     });
   }
 

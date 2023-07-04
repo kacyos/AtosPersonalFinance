@@ -23,11 +23,12 @@ td{
     background: transparent;
 }
 
-.revenue{   
-    background-color: #27f88584;
+.expense{
+    background-color: #fe010164;
     font-weight: 600;
 }
-.expense{
-    background-color: #f8272793;
+
+.revenue{
+    background-color: #27f8855b;
     font-weight: 600;
 }

@@ -22,10 +22,7 @@ export class DashBoardComponent {
   balance: string = '0';
   transactions: ITransaction[] = [];
 
-  constructor(
-    private transactionService: TransactionService,
-    private categoryService: CategoryService
-  ) {
+  constructor(private transactionService: TransactionService) {
     Chart.register(...registerables);
   }
 
@@ -78,7 +75,7 @@ export class DashBoardComponent {
         revenues.push(transaction);
       }
     });
-    labels.sort();
+    //labels.sort();
     return { labels, expenses, revenues };
   }
 
