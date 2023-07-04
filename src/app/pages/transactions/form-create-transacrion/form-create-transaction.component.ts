@@ -61,11 +61,7 @@ export class FormCreateTransactionComponent implements OnInit {
   }
 
   handleCreate(transaction: ITransaction) {
-    this.transactionService
-      .postCreateTransaction(transaction)
-      .subscribe((transaction) => {
-        this.registerNewTransaction.emit();
-      });
+    this.registerNewTransaction.emit(transaction);
   }
 
   handleSearch() {

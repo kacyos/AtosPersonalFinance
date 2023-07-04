@@ -32,7 +32,7 @@ export class FormEditTransactionComponent {
 
     this.editTransactionForm = new FormGroup({
       type: new FormControl(''),
-      category_id: new FormControl(''),
+      categoryId: new FormControl(''),
       date: new FormControl(''),
       value: new FormControl('', [Validators.min(1)]),
       description: new FormControl('', [
@@ -61,7 +61,7 @@ export class FormEditTransactionComponent {
       id: this.transactionForEditing?.id,
       type: this.type.value || this.transactionForEditing?.type,
       category_id:
-        this.category_id.value || this.transactionForEditing?.categoryId,
+        this.categoryId.value || this.transactionForEditing?.categoryId,
       value: this.value.value || this.transactionForEditing?.value,
       date:
         DateConverter.ConvetDateInput(this.date.value) ||
@@ -74,7 +74,7 @@ export class FormEditTransactionComponent {
   resetForm() {
     this.editTransactionForm.setValue({
       type: '',
-      category_id: '',
+      categoryId: '',
       date: '',
       value: '',
       description: '',
@@ -89,12 +89,12 @@ export class FormEditTransactionComponent {
     return this.editTransactionForm.get('value')!;
   }
 
-  get category_id() {
-    return this.editTransactionForm.get('category_id')!;
+  get categoryId() {
+    return this.editTransactionForm.get('categoryId')!;
   }
 
   get date() {
-    return this.editTransactionForm.get('date')!.value;
+    return this.editTransactionForm.get('date')!;
   }
 
   get description() {

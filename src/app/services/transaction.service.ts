@@ -21,11 +21,11 @@ export class TransactionService {
 
   userId = this.cookiesManagerService.getCookie().id;
 
-  getAllTransactions() {
+  /* getAllTransactions() {
     return this.http.get<ITransaction[]>(
       `${API}/list-all?user_id=${this.userId}`
     );
-  }
+  }*/
 
   getLastTransactionsFromSevenDays() {
     return this.http.get<ITransaction[]>(
@@ -84,6 +84,19 @@ export class TransactionService {
   getModifiedToday() {
     return this.http.get<ITransaction[]>(
       `${API}/modified-today?user_id=${this.userId}`
+    );
+  }
+
+  getTransactionsGroupByCategory(initial_date: string, final_date: string) {
+    return this.http.get<
+      {
+        categoryId: number;
+        type: string;
+        categoryName: string;
+        total: number;
+      }[]
+    >(
+      `${API}/group-by-category?user_id=${this.userId}&initial_date=${initial_date}&final_date=${final_date}`
     );
   }
 }

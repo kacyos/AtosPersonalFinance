@@ -1,12 +1,12 @@
 <div class="d-flex gap-4 mx-auto mt-4 flex-column justify-content-center w-75">
   <app-form-create-transaction
-    (registerNewTransaction)="createNewTransaction()"
+    (registerNewTransaction)="createNewTransaction($event)"
     (searchTransaction)="searchTransaction($event)"
   ></app-form-create-transaction>
 
   <!------------ Tabela --------------->
   <div class="table-responsive">
-    <table class="table table-hover table-secondary">
+    <table class="table table-hover">
       <thead>
         <tr>
           <th>Data</th>
@@ -20,9 +20,7 @@
       <tbody>
         <tr
           *ngFor="let transaction of transactions"
-          [ngClass]="
-            transaction.type == 'Saída' ? 'table-danger' : 'table-success'
-          "
+          [ngClass]="transaction.type == 'Saída' ? 'expense' : 'revenue'"
         >
           <td class="align-top">
             {{ transaction.date | date : "dd/MM/yyyy" }}

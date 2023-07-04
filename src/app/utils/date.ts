@@ -17,7 +17,8 @@ export class DateConverter {
    */
   public static ConvetDateInput(date: string) {
     if (!date) {
-      return '';
+      // console.log(this.getSpecificDate(0));
+      return this.getSpecificDate(0);
     }
     const [year, month, day] = date.split('-');
 
