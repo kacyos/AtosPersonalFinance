@@ -36,7 +36,6 @@ export class DashBoardComponent {
         final_date: DateConverter.getSpecificDate(0),
       })
       .subscribe((transactions) => {
-        console.log(transactions);
         this.sumExpensesAndRevenues(transactions);
       });
 
@@ -54,13 +53,6 @@ export class DashBoardComponent {
 
         this.generateChart(labels, arrayExpenses, arrayRevenues);
       });
-
-    const initialDate = DateConverter.getSpecificDate(-7);
-    const finalDate = DateConverter.getSpecificDate(0);
-
-    this.categoryService
-      .getListExpensesAndEarnings(initialDate, finalDate)
-      .subscribe((categories) => {});
   }
 
   sepateDataFromArray(transactions: ITransaction[]) {

@@ -45,6 +45,7 @@ export class TransactionsComponent {
 
   getTransactionsToday() {
     this.transactionService.getModifiedToday().subscribe((transactions) => {
+      console.log(transactions);
       this.transactions = transactions.map((transaction) => {
         return {
           ...transaction,
