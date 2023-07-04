@@ -45,12 +45,11 @@ export class TransactionsComponent {
 
   getTransactionsToday() {
     this.transactionService.getModifiedToday().subscribe((transactions) => {
-      transactions.forEach((transaction) => {
-        console.log(transaction);
-        this.transactions.push({
+      this.transactions = transactions.map((transaction) => {
+        return {
           ...transaction,
-          type: transaction.type === 'revenue' ? 'Entrada' : 'Saída',
-        });
+          type: fomatTypeTransactionForView(transaction.type),
+        };
       });
     });
   }
@@ -87,9 +86,13 @@ export class TransactionsComponent {
     this.transactionForEditing = transaction;
   }
 
-  createNewTransaction() {
-    this.getTransactionsToday();
-    this.openToast('success', 'Transação criada com sucesso!');
+  createNewTransaction(transaction: ITransaction) {
+    this.transactionService
+      .postCreateTransaction(transaction)
+      .subscribe((t) => {
+        this.getTransactionsToday();
+        this.openToast('success', 'Transação criada com sucesso!');
+      });
   }
 
   updateTransaction(transaction: ITransaction) {
