@@ -6,6 +6,7 @@ import {
   fomatTypeTransactionForView,
 } from 'src/app/utils/formatTypeTransaction';
 import { Toast } from 'bootstrap';
+import { DateConverter } from 'src/app/utils/date';
 
 @Component({
   selector: 'app-transactions',
@@ -23,7 +24,7 @@ export class TransactionsComponent {
   constructor(private transactionService: TransactionService) {}
 
   ngOnInit() {
-    this.getAllTransactions();
+    this.getTransactionsToday();
   }
 
   openToast(type: string, message: string) {
@@ -42,9 +43,10 @@ export class TransactionsComponent {
     });
   }
 
-  getAllTransactions() {
-    this.transactionService.getAllTransactions().subscribe((transactions) => {
+  getTransactionsToday() {
+    this.transactionService.getModifiedToday().subscribe((transactions) => {
       transactions.forEach((transaction) => {
+        console.log(transaction);
         this.transactions.push({
           ...transaction,
           type: transaction.type === 'revenue' ? 'Entrada' : 'Saída',
@@ -53,15 +55,40 @@ export class TransactionsComponent {
     });
   }
 
+  searchTransaction(transactionSearch: ITransaction) {
+    const emptySearch = Object.values(transactionSearch).every(
+      (value) => !value
+    );
+
+    if (emptySearch) {
+      this.openToast('danger', 'Preencha o tipo, categoria, valor ou data.');
+      return;
+    }
+
+    this.transactionService
+      .getFilterTransaction({
+        initial_date: DateConverter.ConvetDateInput(transactionSearch?.date),
+        final_date: DateConverter.ConvetDateInput(transactionSearch?.date),
+        transaction_type: transactionSearch?.type,
+        value: transactionSearch.value?.toString(),
+        category_id: transactionSearch?.categoryId?.toString(),
+      })
+      .subscribe((transactions) => {
+        this.transactions = transactions.map((transaction) => {
+          return {
+            ...transaction,
+            type: transaction.type === 'revenue' ? 'Entrada' : 'Saída',
+          };
+        });
+      });
+  }
+
   setTransactionEdit(transaction: ITransaction) {
     this.transactionForEditing = transaction;
   }
 
-  createNewTransaction(transaction: ITransaction) {
-    this.transactions.unshift({
-      ...transaction,
-      type: transaction.type === 'revenue' ? 'Entrada' : 'Saída',
-    });
+  createNewTransaction() {
+    this.getTransactionsToday();
     this.openToast('success', 'Transação criada com sucesso!');
   }
 
@@ -71,12 +98,8 @@ export class TransactionsComponent {
         ...transaction,
         type: fomatTypeTransactionForAPI(transaction.type),
       })
-      .subscribe((transacrionUpdated) => {
-        const type = fomatTypeTransactionForView(transacrionUpdated.type);
-        this.transactions.unshift({
-          ...transacrionUpdated,
-          type,
-        });
+      .subscribe(() => {
+        this.getTransactionsToday();
         this.openToast('success', 'Transação atualizada com sucesso!');
       });
   }

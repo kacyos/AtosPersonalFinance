@@ -36,7 +36,7 @@ export class ReportsComponent implements OnInit {
     this.form = new FormGroup({
       transaction_type: new FormControl(''),
       category_id: new FormControl(''),
-      initial_date: new FormControl(''),
+      initial_date: new FormControl(new Date().valueOf()),
       final_date: new FormControl(''),
     });
 

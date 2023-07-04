@@ -38,6 +38,7 @@
         type="date"
         id="date"
         class="form-control"
+        max="{{ form.value.final_date }}"
         formControlName="initial_date"
       />
     </div>
@@ -46,6 +47,7 @@
       <label for="final_date">Data Final</label>
       <input
         type="date"
+        min="{{ form.value.initial_date }}"
         id="date"
         class="form-control"
         formControlName="final_date"

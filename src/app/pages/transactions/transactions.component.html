@@ -1,6 +1,7 @@
 <div class="d-flex gap-4 mx-auto mt-4 flex-column justify-content-center w-75">
   <app-form-create-transaction
-    (registerNewTransaction)="createNewTransaction($event)"
+    (registerNewTransaction)="createNewTransaction()"
+    (searchTransaction)="searchTransaction($event)"
   ></app-form-create-transaction>
 
   <!------------ Tabela --------------->
