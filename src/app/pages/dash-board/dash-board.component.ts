@@ -27,6 +27,10 @@ export class DashBoardComponent {
   }
 
   ngOnInit() {
+    this.transactions = [];
+    this.totalExpenses = '0';
+    this.totalRevenues = '0';
+    this.balance = '0';
     this.transactionService
       .getFilterTransaction({
         initial_date: DateConverter.getSpecificDate(-30),

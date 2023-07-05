@@ -45,11 +45,12 @@ export class TransactionsComponent {
 
   getTransactionsToday() {
     this.transactionService.getModifiedToday().subscribe((transactions) => {
-      this.transactions = transactions.map((transaction) => {
-        return {
+      this.transactions = [];
+      transactions.forEach((transaction) => {
+        this.transactions.push({
           ...transaction,
           type: fomatTypeTransactionForView(transaction.type),
-        };
+        });
       });
     });
   }

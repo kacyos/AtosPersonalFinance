@@ -5,7 +5,11 @@
   ></app-form-create-transaction>
 
   <!------------ Tabela --------------->
-  <div class="table-responsive">
+  <div *ngIf="!transactions.length" class="d-flex justify-content-center">
+    <h4>Não há transações nesta data</h4>
+  </div>
+
+  <div *ngIf="transactions.length > 0" class="table-responsive">
     <table class="table table-hover">
       <thead>
         <tr>

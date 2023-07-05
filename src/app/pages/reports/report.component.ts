@@ -39,7 +39,7 @@ export class ReportsComponent implements OnInit {
   ngOnInit(): void {
     this.form = new FormGroup({
       transaction_type: new FormControl(''),
-      categoryId: new FormControl(''),
+      category_id: new FormControl(''),
       initial_date: new FormControl(''),
       final_date: new FormControl(''),
     });
@@ -63,6 +63,8 @@ export class ReportsComponent implements OnInit {
   }
 
   getFilterTransaction() {
+    this.totalExpenses = 0;
+    this.totalRevenues = 0;
     this.transactionService
       .getFilterTransaction({
         ...this.form.value,
@@ -110,7 +112,7 @@ export class ReportsComponent implements OnInit {
     return this.form.get('transaction_type');
   }
   get categoryId() {
-    return this.form.get('categoryId');
+    return this.form.get('category_id');
   }
   get initial_date() {
     return this.form.get('initial_date');

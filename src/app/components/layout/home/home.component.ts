@@ -14,6 +14,7 @@ export class HomeComponent {
   ) {}
   logout() {
     this.cookiesManagerService.deleteCookie();
+    location.reload();
     this.router.navigate(['/login']);
   }
 }

@@ -68,7 +68,7 @@ export class TransactionService {
     const paramsSearch = new URLSearchParams();
     const { transaction_type, category_id, value, initial_date, final_date } =
       params;
-
+    console.log({ params });
     transaction_type &&
       paramsSearch.append('transaction_type', transaction_type);
     category_id && paramsSearch.append('category_id', category_id);

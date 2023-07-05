@@ -21,7 +21,7 @@ export class CreateAccountComponent {
 
   ngOnInit() {
     if (this.accountService.isUserLoggedIn()) {
-      this.router.navigate(['/']);
+      this.router.navigate(['home']);
     }
 
     this.createAccountForm = new FormGroup(
@@ -56,7 +56,14 @@ export class CreateAccountComponent {
   onSubmit() {
     if (!this.createAccountForm.valid) {
       this.openToast('bg-danger', 'Verifique os campos do formulário');
+      return;
     }
+
+    if (this.createAccountForm.hasError('mismatch')) {
+      this.openToast('bg-danger', 'As senhas não conferem');
+      return;
+    }
+
     this.createAccount();
   }
 
@@ -64,10 +71,15 @@ export class CreateAccountComponent {
     const { username, password } = this.createAccountForm.value;
     this.accountService
       .createAccount({ userName: username, password })
-      .subscribe(() => {
-        this.openToast('bg-success', 'Conta criada com sucesso');
-        this.router.navigate(['/login']);
-      });
+      .subscribe(
+        () => {
+          this.openToast('bg-success', 'Conta criada com sucesso');
+          this.router.navigate(['login']);
+        },
+        () => {
+          this.openToast('bg-danger', 'Usuário já cadastrado');
+        }
+      );
   }
 
   openToast(type: string, message: string) {
