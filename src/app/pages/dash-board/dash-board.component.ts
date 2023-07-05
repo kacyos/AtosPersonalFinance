@@ -1,9 +1,12 @@
 import { Component, ElementRef, OnInit, ViewChild } from '@angular/core';
-import { Chart, registerables } from 'chart.js';
+import { Chart, registerables, Colors, ChartData } from 'chart.js';
+import { ICategory } from 'src/app/models/category.model';
 
 import { ITransaction } from 'src/app/models/transaction.model';
+import { CategoryService } from 'src/app/services/category.service';
 import { TransactionService } from 'src/app/services/transaction.service';
 import { ArrayTransForm } from 'src/app/utils/arrayTransform';
+import { DateConverter } from 'src/app/utils/date';
 
 @Component({
   selector: 'app-dash-board',
@@ -12,23 +15,31 @@ import { ArrayTransForm } from 'src/app/utils/arrayTransform';
 })
 export class DashBoardComponent {
   @ViewChild('chart') chart: ElementRef | undefined;
+  @ViewChild('pieChart') pieChart: ElementRef | undefined;
 
   totalExpenses: string = '0';
   totalRevenues: string = '0';
   balance: string = '0';
+  transactions: ITransaction[] = [];
 
   constructor(private transactionService: TransactionService) {
     Chart.register(...registerables);
   }
 
   ngOnInit() {
-    this.transactionService.getAllTransactions().subscribe((transactions) => {
-      this.sumExpensesAndRevenues(transactions);
-    });
+    this.transactionService
+      .getFilterTransaction({
+        initial_date: DateConverter.getSpecificDate(-30),
+        final_date: DateConverter.getSpecificDate(0),
+      })
+      .subscribe((transactions) => {
+        this.sumExpensesAndRevenues(transactions);
+      });
 
     this.transactionService
       .getLastTransactionsFromSevenDays()
       .subscribe((transaction) => {
+        this.transactions = transaction;
         const { labels, expenses, revenues } =
           this.sepateDataFromArray(transaction);
         const { arrayExpenses, arrayRevenues } = this.transformArrayByChart(
@@ -36,6 +47,7 @@ export class DashBoardComponent {
           revenues,
           labels
         );
+
         this.generateChart(labels, arrayExpenses, arrayRevenues);
       });
   }
@@ -63,7 +75,7 @@ export class DashBoardComponent {
         revenues.push(transaction);
       }
     });
-    labels.sort();
+    //labels.sort();
     return { labels, expenses, revenues };
   }
 

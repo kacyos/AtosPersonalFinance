@@ -1,9 +1,14 @@
-.red-50{
-    color: #ff000090;
+td{
+    background: transparent;
+}
+.expense{
+    background-color: #fe010164;
+    font-weight: 600;
 }
 
-.green-50{
-    background-color: #009e47bb;
+.revenue{
+    background-color: #27f8855b;
+    font-weight: 600;
 }
 
 .description{
@@ -13,3 +18,4 @@
     white-space: nowrap;
     text-overflow: ellipsis ;
 }
+

@@ -1,3 +1,10 @@
+<head>
+  <link
+    href="https://fonts.googleapis.com/icon?family=Material+Icons"
+    rel="stylesheet"
+  />
+</head>
+
 <form
   class="container d-flex flex-column gap-4"
   (ngSubmit)="onSubmit()"
@@ -30,8 +37,8 @@
       <select
         id="categories"
         class="form-select"
-        [ngClass]="category_id.invalid && formDir.submitted ? 'is-invalid' : ''"
-        formControlName="category_id"
+        [ngClass]="categoryId.invalid && formDir.submitted ? 'is-invalid' : ''"
+        formControlName="categoryId"
         required
       >
         <option disabled [defaultSelected]="true">Selecione a categoria</option>
@@ -44,7 +51,7 @@
           </option>
         </ng-container>
       </select>
-      <div class="invalid-feedback" *ngIf="category_id.errors?.['required']">
+      <div class="invalid-feedback" *ngIf="categoryId.errors?.['required']">
         <ng-container> Selecione a categoria </ng-container>
       </div>
     </div>
@@ -114,7 +121,10 @@
     </div>
   </div>
 
-  <div class="d-flex pt-2 justify-content-center">
-    <button class="btn btn-primary">Cadastrar</button>
+  <div class="d-flex pt-2 gap-4 justify-content-center">
+    <button type="submit" class="btn btn-success">Cadastrar</button>
+    <button (click)="handleSearch()" class="btn btn-primary" type="button">
+      Pesquisar
+    </button>
   </div>
 </form>

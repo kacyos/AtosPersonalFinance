@@ -31,25 +31,21 @@ export class AccountService {
   }
 
   createAccount(user: IUser) {
-    return this.http
-      .post<{
-        user: IUser;
-        token: string;
-      }>(`${API}/user/create`, {
-        name: user.firstName,
-        lastName: user.lastName,
-        email: user.email,
-        userName: user.userName,
-        password: user.password,
-      })
-      .subscribe((response) => {
+    return this.http.post<{
+      user: IUser;
+      token: string;
+    }>(`${API}/user/create`, {
+      userName: user.userName,
+      password: user.password,
+    });
+    /*  .subscribe((response) => {
         const cookieValue = JSON.stringify({
           id: response.user.id,
-          name: response.user.firstName,
+          name: response.user.userName,
           token: response.token,
         });
         this.cookiesManagerService.setCookie(cookieValue);
-      });
+      });*/
   }
 
   logout() {

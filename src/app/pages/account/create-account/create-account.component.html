@@ -16,52 +16,76 @@
     <div class="col-md-6 col-sm-12">
       <section class="row h-100 justify-content-center align-items-center">
         <div class="col-10 d-flex flex-column row-gap-3">
-          <form class="d-flex flex-column row-gap-3" action="">
+          <form
+            (ngSubmit)="onSubmit()"
+            [formGroup]="createAccountForm"
+            #formDir="ngForm"
+            class="d-flex flex-column row-gap-3"
+            action=""
+          >
             <div>
-              <label for="validationCustom01" class="form-label">Usuário</label>
+              <label for="username" class="form-label">Usuário</label>
               <input
                 type="text"
                 class="form-control"
-                id="validationCustom01"
+                id="username"
+                [ngClass]="{
+                  'is-invalid': username.invalid && formDir.submitted
+                }"
                 placeholder="nome de usuário"
+                formControlName="username"
                 value=""
                 required
               />
-              <div class="valid-feedback">Looks good!</div>
+              <div class="invalid-feedback">
+                A usário deve conter no mínimo 3 caracteres.
+              </div>
             </div>
             <div>
-              <label for="validationCustom01" class="form-label">Senha</label>
+              <label for="password" class="form-label">Senha</label>
               <input
                 type="password"
                 class="form-control"
-                id="validationCustom01"
+                [ngClass]="{
+                  'is-invalid': password.invalid && formDir.submitted
+                }"
+                id="password"
                 placeholder="senha"
-                value=""
+                formControlName="password"
+                min="8"
                 required
               />
-              <div class="valid-feedback">Looks good!</div>
+              <div class="invalid-feedback">
+                A senha deve conter no mínimo 8 caracteres.
+              </div>
             </div>
             <div>
-              <label for="validationCustom01" class="form-label"
+              <label for="confirmPassword" class="form-label"
                 >Confirme a senha</label
               >
               <input
                 type="password"
                 class="form-control"
-                id="validationCustom01"
+                id="confirmPassword"
+                [ngClass]="{
+                  'is-invalid': confirmPassword.invalid && formDir.submitted
+                }"
                 placeholder="senha"
+                formControlName="confirmPassword"
                 value=""
                 required
               />
-              <div class="valid-feedback">Looks good!</div>
+              <div class="invalid-feedback">As senhas devem ser iguais.</div>
+            </div>
+
+            <div class="d-flex flex-column row-gap-3 align-items-center">
+              <button class="w-50 btn btn-primary">Entrar</button>
+              <a href="login">Já tenho uma conta</a>
             </div>
           </form>
-          <div class="d-flex flex-column row-gap-3 align-items-center">
-            <button class="w-50 btn btn-primary" type="button">Entrar</button>
-            <a href="login">Já tenho uma conta</a>
-          </div>
         </div>
       </section>
     </div>
   </div>
 </div>
+<app-toast [type]="toast.type" [message]="toast.message"></app-toast>

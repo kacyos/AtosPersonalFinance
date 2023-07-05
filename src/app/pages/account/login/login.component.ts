@@ -28,10 +28,9 @@ export class LoginComponent {
   async onSubmit() {
     try {
       this.accountService.login(this.login).subscribe((response) => {
-        localStorage.setItem('token', response.token);
         const cookieValue = JSON.stringify({
           id: response.user.id,
-          name: response.user.firstName,
+          name: response.user.userName,
           token: response.token,
         });
         this.cookiesManagerService.setCookie(cookieValue);

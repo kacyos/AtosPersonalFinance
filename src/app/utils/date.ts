@@ -17,10 +17,17 @@ export class DateConverter {
    */
   public static ConvetDateInput(date: string) {
     if (!date) {
-      return '';
+      // console.log(this.getSpecificDate(0));
+      return this.getSpecificDate(0);
     }
     const [year, month, day] = date.split('-');
 
     return `${day}/${month}/${year}`;
+  }
+
+  public static getSpecificDate(number: number) {
+    const date = new Date();
+    date.setDate(date.getDate() + number);
+    return date.toLocaleDateString('pt-BR', {});
   }
 }

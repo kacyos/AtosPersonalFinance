@@ -37,9 +37,9 @@ export class ArrayTransForm {
     return transformedArray;
   }
 
-  public static groupByCategory(array: ITransaction[]) {
-    const groupedRevenues: { [key: string]: [ITransaction] } = {};
-    const groupedExpenses: { [key: string]: [ITransaction] } = {};
+  /*public static groupByCategory(array: ITransaction[]) {
+    const groupedRevenues: { [key: string]: [{type: string, total: number}] } = {};
+    const groupedExpenses: { [key: string]: [{type: string, total: number}] } = {};
 
     for (const obj of array) {
       const formattedDate = new Date(obj.date).toLocaleDateString('pt-BR', {
@@ -52,9 +52,13 @@ export class ArrayTransForm {
 
       if (obj.type === 'revenue') {
         if (!groupedRevenues[key!]) {
-          groupedRevenues[key!] = [{ ...obj, date: formattedDate }];
+          groupedRevenues[key!] = [{ type: obj.type, total: obj.value }];
         } else {
-          groupedRevenues[key!].push({ ...obj, date: formattedDate });
+          groupedRevenues[key!].push({
+            ...obj,
+            value += obj.value,
+            date: formattedDate,
+          });
         }
       } else {
         if (!groupedExpenses[key!]) {
@@ -66,5 +70,5 @@ export class ArrayTransForm {
     }
 
     return { groupedExpenses, groupedRevenues };
-  }
+  }*/
 }

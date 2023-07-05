@@ -21,11 +21,11 @@ export class TransactionService {
 
   userId = this.cookiesManagerService.getCookie().id;
 
-  getAllTransactions() {
+  /* getAllTransactions() {
     return this.http.get<ITransaction[]>(
       `${API}/list-all?user_id=${this.userId}`
     );
-  }
+  }*/
 
   getLastTransactionsFromSevenDays() {
     return this.http.get<ITransaction[]>(
@@ -59,22 +59,44 @@ export class TransactionService {
   }
 
   getFilterTransaction(params: {
-    transaction_type: string;
-    category_id: string;
-    initial_date: string;
-    final_date: string;
+    transaction_type?: string;
+    category_id?: string;
+    initial_date?: string;
+    final_date?: string;
+    value?: string;
   }) {
     const paramsSearch = new URLSearchParams();
-    const { transaction_type, category_id, initial_date, final_date } = params;
+    const { transaction_type, category_id, value, initial_date, final_date } =
+      params;
 
     transaction_type &&
       paramsSearch.append('transaction_type', transaction_type);
     category_id && paramsSearch.append('category_id', category_id);
+    value && paramsSearch.append('value', value);
     initial_date && paramsSearch.append('initial_date', initial_date);
     final_date && paramsSearch.append('final_date', final_date);
 
     return this.http.get<ITransaction[]>(
       `${API}/list-by?user_id=${this.userId}&${paramsSearch.toString()}`
+    );
+  }
+
+  getModifiedToday() {
+    return this.http.get<ITransaction[]>(
+      `${API}/modified-today?user_id=${this.userId}`
+    );
+  }
+
+  getTransactionsGroupByCategory(initial_date: string, final_date: string) {
+    return this.http.get<
+      {
+        categoryId: number;
+        type: string;
+        categoryName: string;
+        total: number;
+      }[]
+    >(
+      `${API}/group-by-category?user_id=${this.userId}&initial_date=${initial_date}&final_date=${final_date}`
     );
   }
 }

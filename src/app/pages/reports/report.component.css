@@ -1,0 +1,34 @@
+.revenue-card, 
+.balance-card,
+.expense-card{   
+    background-repeat: no-repeat;
+    background-size: contain;  
+}
+
+.expense-card{
+    background-image: url("../../../assets/icons/arrow-down.svg");
+    background-color: #f8272793;
+}
+
+.revenue-card{
+    background-image: url("../../../assets/icons/arrow-up.svg");
+    background-color: #27f88584;
+}
+.balance-card{
+    background-image: url("../../../assets/icons/dolar.svg");
+    background-color: #272ef88b;
+}
+
+td{
+    background: transparent;
+}
+
+.expense{
+    background-color: #fe010164;
+    font-weight: 600;
+}
+
+.revenue{
+    background-color: #27f8855b;
+    font-weight: 600;
+}

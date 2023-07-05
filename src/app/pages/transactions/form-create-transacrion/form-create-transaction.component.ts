@@ -1,9 +1,8 @@
-import { Component, EventEmitter, Input, OnInit, Output } from '@angular/core';
+import { Component, EventEmitter, OnInit, Output } from '@angular/core';
 import { FormControl, FormGroup, Validators } from '@angular/forms';
 import { ICategory } from 'src/app/models/category.model';
 import { ITransaction } from 'src/app/models/transaction.model';
 import { CategoryService } from 'src/app/services/category.service';
-import { TransactionService } from 'src/app/services/transaction.service';
 import { DateConverter } from 'src/app/utils/date';
 
 @Component({
@@ -12,13 +11,12 @@ import { DateConverter } from 'src/app/utils/date';
   styleUrls: [],
 })
 export class FormCreateTransactionComponent implements OnInit {
-  constructor(
-    private transactionService: TransactionService,
-    private categoryService: CategoryService
-  ) {}
+  constructor(private categoryService: CategoryService) {}
 
   @Output()
   registerNewTransaction = new EventEmitter<any>();
+  @Output()
+  searchTransaction = new EventEmitter<any>();
 
   categories: ICategory[] = [];
 
@@ -29,7 +27,7 @@ export class FormCreateTransactionComponent implements OnInit {
 
     this.form = new FormGroup({
       type: new FormControl('', [Validators.required]),
-      category_id: new FormControl('', [Validators.required]),
+      categoryId: new FormControl('', [Validators.required]),
       date: new FormControl('', [Validators.required]),
       value: new FormControl('', [Validators.required, Validators.min(1)]),
       description: new FormControl('', [
@@ -44,7 +42,7 @@ export class FormCreateTransactionComponent implements OnInit {
       return;
     }
 
-    this.createNewTransaction({
+    this.handleCreate({
       ...this.form.value,
       date: DateConverter.ConvetDateInput(this.date),
     });
@@ -55,15 +53,17 @@ export class FormCreateTransactionComponent implements OnInit {
   getAllCategories() {
     this.categoryService.getAllCategories().subscribe((categories) => {
       this.categories = categories;
+      console.log(categories);
     });
   }
 
-  createNewTransaction(transaction: ITransaction) {
-    this.transactionService
-      .postCreateTransaction(transaction)
-      .subscribe((transaction) => {
-        this.registerNewTransaction.emit(transaction);
-      });
+  handleCreate(transaction: ITransaction) {
+    this.registerNewTransaction.emit(transaction);
+  }
+
+  handleSearch() {
+    this.form.value.description = '';
+    this.searchTransaction.emit(this.form.value);
   }
 
   get type() {
@@ -74,8 +74,8 @@ export class FormCreateTransactionComponent implements OnInit {
     return this.form.get('value')!;
   }
 
-  get category_id() {
-    return this.form.get('category_id')!;
+  get categoryId() {
+    return this.form.get('categoryId')!;
   }
 
   get date() {
