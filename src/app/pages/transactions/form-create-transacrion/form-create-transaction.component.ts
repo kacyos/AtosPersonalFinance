@@ -1,9 +1,8 @@
-import { Component, EventEmitter, Input, OnInit, Output } from '@angular/core';
+import { Component, EventEmitter, OnInit, Output } from '@angular/core';
 import { FormControl, FormGroup, Validators } from '@angular/forms';
 import { ICategory } from 'src/app/models/category.model';
 import { ITransaction } from 'src/app/models/transaction.model';
 import { CategoryService } from 'src/app/services/category.service';
-import { TransactionService } from 'src/app/services/transaction.service';
 import { DateConverter } from 'src/app/utils/date';
 
 @Component({
@@ -12,10 +11,7 @@ import { DateConverter } from 'src/app/utils/date';
   styleUrls: [],
 })
 export class FormCreateTransactionComponent implements OnInit {
-  constructor(
-    private transactionService: TransactionService,
-    private categoryService: CategoryService
-  ) {}
+  constructor(private categoryService: CategoryService) {}
 
   @Output()
   registerNewTransaction = new EventEmitter<any>();
