@@ -30,7 +30,7 @@
                 class="form-control"
                 id="username"
                 [ngClass]="{
-                  'is-invalid': username?.invalid && formDir.touched
+                  'is-invalid': username.invalid && formDir.submitted
                 }"
                 placeholder="nome de usuário"
                 formControlName="username"
@@ -47,7 +47,7 @@
                 type="password"
                 class="form-control"
                 [ngClass]="{
-                  'is-invalid': password?.invalid && formDir.touched
+                  'is-invalid': password.invalid && formDir.submitted
                 }"
                 id="password"
                 placeholder="senha"
@@ -68,7 +68,7 @@
                 class="form-control"
                 id="confirmPassword"
                 [ngClass]="{
-                  'is-invalid': password?.invalid && formDir.touched
+                  'is-invalid': confirmPassword.invalid && formDir.submitted
                 }"
                 placeholder="senha"
                 formControlName="confirmPassword"
@@ -79,7 +79,7 @@
             </div>
 
             <div class="d-flex flex-column row-gap-3 align-items-center">
-              <button class="w-50 btn btn-primary" type="button">Entrar</button>
+              <button class="w-50 btn btn-primary">Entrar</button>
               <a href="login">Já tenho uma conta</a>
             </div>
           </form>
@@ -88,3 +88,4 @@
     </div>
   </div>
 </div>
+<app-toast [type]="toast.type" [message]="toast.message"></app-toast>
